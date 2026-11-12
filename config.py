@@ -1,4 +1,4 @@
-"""Project-wide identity, expert-system thresholds, and decision-support assumptions.
+"""Project-wide settings, expert-system thresholds, and decision-support assumptions.
 
 Keep visible assumptions centralized here so the UI and reasoning code use one
 consistent value and users can inspect what drives estimates.
@@ -7,9 +7,7 @@ consistent value and users can inspect what drives estimates.
 IDENTITY = {
     "project": "BizSage",
     "subtitle": "SME Financial & Operational Diagnostic Expert System",
-    "student": "Amna Mohsin",
-    "roll": "CT-24169",
-}  # Only project name, student name and roll number are shown (no date), as the course requires.
+}
 
 WEEKDAYS_PER_MONTH = 22      # assumed working weekdays per month
 WEEKEND_DAYS_PER_MONTH = 8   # assumed weekend days per month

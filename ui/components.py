@@ -18,9 +18,9 @@ def html(s: str) -> None:
 
 
 def identification() -> None:
-    """Project name, student name and roll number only. No date (course requirement)."""
+    """Show the project identity without exposing personal student information."""
     html(f'<div class="bs-id"><span><b>{esc(IDENTITY["project"])}</b> &middot; {esc(IDENTITY["subtitle"])}</span>'
-         f'<span>Student: <b>{esc(IDENTITY["student"])}</b> &nbsp;|&nbsp; Roll No: <b>{esc(IDENTITY["roll"])}</b></span></div>')
+         '</div>')
 
 
 def header(title: str, subtitle: str = "") -> None:
