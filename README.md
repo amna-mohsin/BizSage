@@ -162,7 +162,8 @@ tools/                  Knowledge-base documentation utility
 
 ## Author
 
-**Amna Mohsin** · Roll No: **CT-24169**
+- **Amna Mohsin** — [GitHub](https://github.com/amna-mohsin) · [LinkedIn](https://www.linkedin.com/in/amna-m98/)
+
 
 ## License
 
