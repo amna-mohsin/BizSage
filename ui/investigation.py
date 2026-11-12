@@ -33,12 +33,12 @@ def _answer_widget(s, fid, key):
             s.answer(fid, None if choice.startswith("Not sure") else choice, 1.0, choice)
             st.rerun()
     else:
-        text = st.text_input("Your answer (a number, or a word such as low / medium / high)", key=f"ans_{key}")
+        text = st.text_input("Your answer (a number e.g. 15 or 15%)", key=f"ans_{key}")
         c1, c2, _ = st.columns([1, 1.4, 3])
         if c1.button("Submit answer", type="primary", key=f"sub_{key}"):
             value, cert, status = parse_numeric_answer(text, spec.get("qualitative"))
             if status == "invalid":
-                st.warning("I did not understand that. Type a number (e.g. 15 or 15%) or a word like low, medium, high.")
+                st.warning("I did not understand that. Type a number (e.g. 15 or 15%).")
                 return
             if status == "unknown":
                 s.answer(fid, None, 1.0, "Don't know")
