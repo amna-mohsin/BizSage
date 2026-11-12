@@ -1,0 +1,271 @@
+{
+ "weekday_customers_per_day": {
+  "label": "Customers per weekday (average)",
+  "section": "Operations & staffing",
+  "unit": "customers",
+  "min": 0,
+  "max": 20000
+ },
+ "weekend_customers_per_day": {
+  "label": "Customers per weekend day (average)",
+  "section": "Operations & staffing",
+  "unit": "customers",
+  "min": 0,
+  "max": 20000
+ },
+ "weekday_staff": {
+  "label": "Staff on duty per weekday",
+  "section": "Operations & staffing",
+  "unit": "people",
+  "min": 0,
+  "max": 500
+ },
+ "weekend_staff": {
+  "label": "Staff on duty per weekend day",
+  "section": "Operations & staffing",
+  "unit": "people",
+  "min": 0,
+  "max": 500
+ },
+ "avg_daily_wage": {
+  "label": "Average daily wage per worker",
+  "section": "Operations & staffing",
+  "unit": "Rs",
+  "min": 0,
+  "max": 50000,
+  "optional": true
+ },
+ "labour_hours_prev": {
+  "label": "Labour hours last month",
+  "section": "Operations & staffing",
+  "unit": "hours",
+  "min": 0,
+  "max": 200000,
+  "optional": true
+ },
+ "delivery_orders_now": {
+  "label": "Delivery orders this month",
+  "section": "Operations & staffing",
+  "unit": "orders",
+  "min": 0,
+  "max": 500000,
+  "optional": true
+ },
+ "delivery_orders_prev": {
+  "label": "Delivery orders last month",
+  "section": "Operations & staffing",
+  "unit": "orders",
+  "min": 0,
+  "max": 500000,
+  "optional": true
+ },
+ "labour_cost": {
+  "label": "Labour cost this month (salaries + daily wages)",
+  "section": "Costs this month",
+  "unit": "Rs",
+  "min": 0,
+  "max": 1000000000.0
+ },
+ "rent": {
+  "label": "Rent this month",
+  "section": "Costs this month",
+  "unit": "Rs",
+  "min": 0,
+  "max": 1000000000.0
+ },
+ "utilities": {
+  "label": "Utilities this month (electricity, gas, water)",
+  "section": "Costs this month",
+  "unit": "Rs",
+  "min": 0,
+  "max": 1000000000.0
+ },
+ "utilities_prev": {
+  "label": "Utilities last month",
+  "section": "Costs this month",
+  "unit": "Rs",
+  "min": 0,
+  "max": 1000000000.0,
+  "optional": true
+ },
+ "expected_food_cost": {
+  "label": "Expected (budgeted) food cost this month",
+  "section": "Costs this month",
+  "unit": "Rs",
+  "min": 0,
+  "max": 1000000000.0,
+  "optional": true
+ },
+ "reported_net_profit": {
+  "label": "Profit you believe you made this month",
+  "section": "Costs this month",
+  "unit": "Rs",
+  "min": -1000000000.0,
+  "max": 1000000000.0,
+  "optional": true
+ },
+ "cash_on_hand": {
+  "label": "Cash on hand and in bank",
+  "section": "Cash & credit",
+  "unit": "Rs",
+  "min": 0,
+  "max": 10000000000.0
+ },
+ "cash_last_month": {
+  "label": "Cash on hand last month",
+  "section": "Cash & credit",
+  "unit": "Rs",
+  "min": 0,
+  "max": 10000000000.0,
+  "optional": true
+ },
+ "receivables_total": {
+  "label": "Money customers/clients owe you",
+  "section": "Cash & credit",
+  "unit": "Rs",
+  "min": 0,
+  "max": 10000000000.0,
+  "optional": true
+ },
+ "receivables_overdue": {
+  "label": "...of which overdue",
+  "section": "Cash & credit",
+  "unit": "Rs",
+  "min": 0,
+  "max": 10000000000.0,
+  "optional": true
+ },
+ "payables_total": {
+  "label": "Money you owe suppliers",
+  "section": "Cash & credit",
+  "unit": "Rs",
+  "min": 0,
+  "max": 10000000000.0,
+  "optional": true
+ },
+ "payables_overdue": {
+  "label": "...of which overdue",
+  "section": "Cash & credit",
+  "unit": "Rs",
+  "min": 0,
+  "max": 10000000000.0,
+  "optional": true
+ },
+ "total_debt": {
+  "label": "Total loans and borrowings",
+  "section": "Debt & capital",
+  "unit": "Rs",
+  "min": 0,
+  "max": 10000000000.0,
+  "optional": true
+ },
+ "total_debt_prev": {
+  "label": "Total loans three months ago",
+  "section": "Debt & capital",
+  "unit": "Rs",
+  "min": 0,
+  "max": 10000000000.0,
+  "optional": true
+ },
+ "short_term_debt": {
+  "label": "...of which due within 12 months",
+  "section": "Debt & capital",
+  "unit": "Rs",
+  "min": 0,
+  "max": 10000000000.0,
+  "optional": true
+ },
+ "monthly_installment": {
+  "label": "Monthly loan instalments",
+  "section": "Debt & capital",
+  "unit": "Rs",
+  "min": 0,
+  "max": 1000000000.0,
+  "optional": true
+ },
+ "interest_expense": {
+  "label": "Interest paid this month",
+  "section": "Debt & capital",
+  "unit": "Rs",
+  "min": 0,
+  "max": 1000000000.0,
+  "optional": true
+ },
+ "interest_expense_prev": {
+  "label": "Interest paid last month",
+  "section": "Debt & capital",
+  "unit": "Rs",
+  "min": 0,
+  "max": 1000000000.0,
+  "optional": true
+ },
+ "equity": {
+  "label": "Owner's capital invested in the business",
+  "section": "Debt & capital",
+  "unit": "Rs",
+  "min": -10000000000.0,
+  "max": 10000000000.0,
+  "optional": true
+ },
+ "inventory_value": {
+  "label": "Value of stock on hand",
+  "section": "Inventory & food",
+  "unit": "Rs",
+  "min": 0,
+  "max": 10000000000.0,
+  "optional": true
+ },
+ "discount_pct": {
+  "label": "Discounts given (% of sales)",
+  "section": "Costs this month",
+  "unit": "%",
+  "min": 0,
+  "max": 100,
+  "optional": true,
+  "qualitative": {
+   "none": 0,
+   "low": 3,
+   "medium": 8,
+   "high": 15,
+   "very high": 25
+  }
+ },
+ "wastage_pct": {
+  "label": "Food wastage (% of food bought)",
+  "section": "Inventory & food",
+  "unit": "%",
+  "min": 0,
+  "max": 100,
+  "optional": true,
+  "qualitative": {
+   "none": 1,
+   "low": 4,
+   "medium": 9,
+   "high": 16,
+   "very high": 25
+  }
+ },
+ "overdue_installments": {
+  "label": "Overdue loan instalments",
+  "section": "Debt & capital",
+  "unit": "count",
+  "min": 0,
+  "max": 10000000.0,
+  "optional": true,
+  "qualitative": {
+   "none": 0,
+   "one": 1,
+   "two": 2,
+   "many": 3
+  }
+ },
+ "labour_hours_month": {
+  "label": "Labour hours worked this month",
+  "section": "Operations & staffing",
+  "unit": "hours",
+  "min": 0,
+  "max": 10000000.0,
+  "optional": true,
+  "qualitative": null
+ }
+}

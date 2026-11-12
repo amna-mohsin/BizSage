@@ -1,0 +1,225 @@
+[
+ {
+  "id": "R01",
+  "kind": "diagnostic",
+  "category": "Revenue & Demand",
+  "name": "Revenue declining for consecutive months",
+  "conditions": [
+   {
+    "fact": "revenue_decline_streak",
+    "op": "ge",
+    "value": 2
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_DEMAND",
+    "cf": 0.45
+   }
+  ],
+  "explanation": "Revenue has fallen for {revenue_decline_streak:.0f} months in a row.",
+  "next_question": "repeat_trend"
+ },
+ {
+  "id": "R02",
+  "kind": "diagnostic",
+  "category": "Revenue & Demand",
+  "name": "Customer footfall decreasing",
+  "conditions": [
+   {
+    "fact": "customers_change_pct",
+    "op": "le",
+    "value": "-$decline_pct"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_DEMAND",
+    "cf": 0.55,
+    "group": "demand_volume"
+   }
+  ],
+  "explanation": "Customer visits changed by {customers_change_pct:.1f}% compared with last month.",
+  "next_question": "cancellations_up"
+ },
+ {
+  "id": "R03",
+  "kind": "diagnostic",
+  "category": "Revenue & Demand",
+  "name": "Average bill per customer decreasing",
+  "conditions": [
+   {
+    "fact": "avg_ticket_change_pct",
+    "op": "le",
+    "value": "-$ticket_drop_pct"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_PRICING",
+    "cf": 0.45
+   },
+   {
+    "hypothesis": "H_MENU",
+    "cf": 0.2
+   }
+  ],
+  "explanation": "The average bill per customer changed by {avg_ticket_change_pct:.1f}%.",
+  "next_question": "discount_dependence"
+ },
+ {
+  "id": "R04",
+  "kind": "diagnostic",
+  "category": "Revenue & Demand",
+  "name": "Daily orders decreasing",
+  "conditions": [
+   {
+    "fact": "orders_trend",
+    "op": "in",
+    "value": [
+     "decreasing"
+    ]
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_DEMAND",
+    "cf": 0.4,
+    "group": "demand_volume"
+   }
+  ],
+  "explanation": "The owner reports that daily orders are decreasing."
+ },
+ {
+  "id": "R05",
+  "kind": "diagnostic",
+  "category": "Revenue & Demand",
+  "name": "Weekend demand far above weekday demand",
+  "conditions": [
+   {
+    "fact": "weekend_weekday_ratio",
+    "op": "ge",
+    "value": "$weekend_ratio_high"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_LABOUR",
+    "cf": 0.35
+   },
+   {
+    "hypothesis": "H_CAPACITY",
+    "cf": 0.3
+   }
+  ],
+  "explanation": "Weekend customers are {weekend_weekday_ratio:.1f}x weekday customers, so a flat staffing pattern wastes weekday labour or overloads weekends.",
+  "next_question": "idle_time"
+ },
+ {
+  "id": "R06",
+  "kind": "diagnostic",
+  "category": "Revenue & Demand",
+  "name": "Sales depend on discounting",
+  "conditions": [
+   {
+    "fact": "discount_dependence",
+    "op": "true"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_PRICING",
+    "cf": 0.45
+   }
+  ],
+  "explanation": "The owner reports that sales drop sharply when discounts stop."
+ },
+ {
+  "id": "R07",
+  "kind": "diagnostic",
+  "category": "Revenue & Demand",
+  "name": "Repeat customers decreasing",
+  "conditions": [
+   {
+    "fact": "repeat_trend",
+    "op": "in",
+    "value": [
+     "decreasing"
+    ]
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_RETENTION",
+    "cf": 0.55
+   }
+  ],
+  "explanation": "The owner reports that repeat customers are decreasing."
+ },
+ {
+  "id": "R08",
+  "kind": "diagnostic",
+  "category": "Revenue & Demand",
+  "name": "Delivery orders declining",
+  "conditions": [
+   {
+    "fact": "delivery_declining",
+    "op": "true"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_DEMAND",
+    "cf": 0.3
+   }
+  ],
+  "explanation": "Delivery or takeaway orders have gone down."
+ },
+ {
+  "id": "R09",
+  "kind": "diagnostic",
+  "category": "Revenue & Demand",
+  "name": "Order cancellations increasing",
+  "conditions": [
+   {
+    "fact": "cancellations_up",
+    "op": "true"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_RETENTION",
+    "cf": 0.4
+   },
+   {
+    "hypothesis": "H_CAPACITY",
+    "cf": 0.25
+   }
+  ],
+  "explanation": "Order cancellations are increasing, which often points to slow service or poor experience."
+ },
+ {
+  "id": "R10",
+  "kind": "diagnostic",
+  "category": "Revenue & Demand",
+  "name": "Revenue fluctuating beyond seasonal norms",
+  "conditions": [
+   {
+    "fact": "revenue_cv_pct",
+    "op": "ge",
+    "value": "$volatility_high"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_DEMAND",
+    "cf": 0.25
+   },
+   {
+    "hypothesis": "H_LIQUIDITY",
+    "cf": 0.15
+   }
+  ],
+  "explanation": "Monthly revenue varies by {revenue_cv_pct:.0f}%, more than normal seasonal swings."
+ }
+]

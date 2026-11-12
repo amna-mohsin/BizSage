@@ -1,0 +1,320 @@
+[
+ {
+  "id": "X01",
+  "kind": "exclusion",
+  "category": "Exclusion",
+  "name": "Supplier prices stable",
+  "conditions": [
+   {
+    "fact": "supplier_prices_up",
+    "op": "false"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_FOODCOST",
+    "cf": -0.45,
+    "group": "food_price"
+   }
+  ],
+  "explanation": "The owner reports stable supplier prices, so a supplier price rise is not the cause of high food cost (check wastage, portions and menu instead)."
+ },
+ {
+  "id": "X02",
+  "kind": "exclusion",
+  "category": "Exclusion",
+  "name": "Customer visits stable or growing",
+  "conditions": [
+   {
+    "fact": "customers_change_pct",
+    "op": "ge",
+    "value": "$customers_stable"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_DEMAND",
+    "cf": -0.5,
+    "group": "demand_volume"
+   }
+  ],
+  "explanation": "Customer visits changed by {customers_change_pct:.1f}%: demand is not falling."
+ },
+ {
+  "id": "X03",
+  "kind": "exclusion",
+  "category": "Exclusion",
+  "name": "Food wastage low",
+  "conditions": [
+   {
+    "fact": "wastage_pct",
+    "op": "le",
+    "value": "$wastage_ok"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_WASTAGE",
+    "cf": -0.6,
+    "group": "waste_level"
+   }
+  ],
+  "explanation": "Wastage is only about {wastage_pct:.0f}%, so food wastage is unlikely to be a problem."
+ },
+ {
+  "id": "X04",
+  "kind": "exclusion",
+  "category": "Exclusion",
+  "name": "Labour cost normal and staffing aligned",
+  "conditions": [
+   {
+    "fact": "labour_cost_ratio",
+    "op": "le",
+    "value": "$labour_ok"
+   },
+   {
+    "fact": "schedule_alignment_index",
+    "op": "lt",
+    "value": "$align_ok"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_LABOUR",
+    "cf": -0.5
+   }
+  ],
+  "explanation": "Labour cost is {labour_cost_ratio:.1f}% of sales and staffing follows demand, so a staffing mismatch is unlikely."
+ },
+ {
+  "id": "X05",
+  "kind": "exclusion",
+  "category": "Exclusion",
+  "name": "Healthy cash buffer and current ratio",
+  "conditions": [
+   {
+    "fact": "cash_buffer_months",
+    "op": "ge",
+    "value": "$cash_buffer_ok"
+   },
+   {
+    "fact": "current_ratio",
+    "op": "ge",
+    "value": "$current_ratio_ok"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_LIQUIDITY",
+    "cf": -0.5,
+    "group": "liquidity_level"
+   }
+  ],
+  "explanation": "Cash covers {cash_buffer_months:.1f} months of expenses and the current ratio is {current_ratio:.2f}: liquidity is healthy."
+ },
+ {
+  "id": "X06",
+  "kind": "exclusion",
+  "category": "Exclusion",
+  "name": "Low debt and light repayment burden",
+  "conditions": [
+   {
+    "fact": "debt_to_equity",
+    "op": "le",
+    "value": "$de_ok"
+   },
+   {
+    "fact": "debt_service_burden_pct",
+    "op": "le",
+    "value": "$dsb_ok"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_DEBT",
+    "cf": -0.6
+   }
+  ],
+  "explanation": "Debt is low relative to equity and instalments are a small share of sales, so debt is unlikely to be the problem."
+ },
+ {
+  "id": "X07",
+  "kind": "exclusion",
+  "category": "Exclusion",
+  "name": "Rent is a small share of sales",
+  "conditions": [
+   {
+    "fact": "rent_ratio",
+    "op": "le",
+    "value": "$rent_ok"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_FIXED",
+    "cf": -0.5
+   }
+  ],
+  "explanation": "Rent is only {rent_ratio:.1f}% of sales."
+ },
+ {
+  "id": "X08",
+  "kind": "exclusion",
+  "category": "Exclusion",
+  "name": "Weekend load per staff member is comfortable",
+  "conditions": [
+   {
+    "fact": "weekend_customers_per_staff",
+    "op": "le",
+    "value": "$cps_ok_high"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_CAPACITY",
+    "cf": -0.5
+   }
+  ],
+  "explanation": "{weekend_customers_per_staff:.1f} customers per staff member on weekends is manageable."
+ },
+ {
+  "id": "X09",
+  "kind": "exclusion",
+  "category": "Exclusion",
+  "name": "Repeat customers stable or increasing",
+  "conditions": [
+   {
+    "fact": "repeat_trend",
+    "op": "in",
+    "value": [
+     "increasing",
+     "stable"
+    ]
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_RETENTION",
+    "cf": -0.4
+   }
+  ],
+  "explanation": "Repeat customers are holding up, so poor retention is less likely."
+ },
+ {
+  "id": "X10",
+  "kind": "exclusion",
+  "category": "Exclusion",
+  "name": "Average bill steady and discounts small",
+  "conditions": [
+   {
+    "fact": "avg_ticket_change_pct",
+    "op": "ge",
+    "value": 0
+   },
+   {
+    "fact": "discount_pct",
+    "op": "le",
+    "value": "$discount_ok"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_PRICING",
+    "cf": -0.4
+   }
+  ],
+  "explanation": "The average bill is not falling and discounts are small ({discount_pct:.0f}%)."
+ },
+ {
+  "id": "X11",
+  "kind": "exclusion",
+  "category": "Exclusion",
+  "name": "Food cost normal and steady",
+  "conditions": [
+   {
+    "fact": "food_cost_ratio",
+    "op": "le",
+    "value": "$food_cost_high"
+   },
+   {
+    "fact": "food_cost_per_customer_change_pct",
+    "op": "lt",
+    "value": 3
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_FOODCOST",
+    "cf": -0.5
+   }
+  ],
+  "explanation": "Food cost is {food_cost_ratio:.1f}% of sales and per-customer cost is steady, so rising food cost is unlikely."
+ },
+ {
+  "id": "X12",
+  "kind": "exclusion",
+  "category": "Exclusion",
+  "name": "Stock levels healthy and no shortages",
+  "conditions": [
+   {
+    "fact": "inventory_days",
+    "op": "le",
+    "value": "$inventory_days_max"
+   },
+   {
+    "fact": "stockouts",
+    "op": "in",
+    "value": [
+     "never"
+    ]
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_INVENTORY",
+    "cf": -0.4
+   }
+  ],
+  "explanation": "Stock covers {inventory_days:.0f} days and items never run out: inventory control looks sound."
+ },
+ {
+  "id": "X13",
+  "kind": "exclusion",
+  "category": "Exclusion",
+  "name": "Gross margin healthy",
+  "conditions": [
+   {
+    "fact": "gross_margin_pct",
+    "op": "ge",
+    "value": "$margin_healthy"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_MENU",
+    "cf": -0.4
+   }
+  ],
+  "explanation": "Gross margin is {gross_margin_pct:.1f}%, so the menu mix is earning enough."
+ },
+ {
+  "id": "X14",
+  "kind": "exclusion",
+  "category": "Exclusion",
+  "name": "Food is prepared according to demand",
+  "conditions": [
+   {
+    "fact": "prep_same_weekday_weekend",
+    "op": "false"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_WASTAGE",
+    "cf": -0.3
+   }
+  ],
+  "explanation": "Preparation already follows demand, so over-preparation is a less likely cause of waste (look at expiry and over-buying instead).",
+  "next_question": "expiry_before_use"
+ }
+]

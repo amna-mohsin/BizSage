@@ -1,0 +1,159 @@
+[
+ {
+  "id": "CK01",
+  "severity": "conflict",
+  "conditions": [
+   {
+    "fact": "orders_trend",
+    "op": "in",
+    "value": [
+     "increasing"
+    ]
+   },
+   {
+    "fact": "customers_change_pct",
+    "op": "le",
+    "value": "$conflict_orders"
+   }
+  ],
+  "disputes": [
+   "orders_trend"
+  ],
+  "message": "You said daily orders are increasing, but customer visits changed by {customers_change_pct:.0f}%."
+ },
+ {
+  "id": "CK02",
+  "severity": "conflict",
+  "conditions": [
+   {
+    "fact": "repeat_trend",
+    "op": "in",
+    "value": [
+     "increasing"
+    ]
+   },
+   {
+    "fact": "customers_change_pct",
+    "op": "le",
+    "value": "$conflict_repeat"
+   }
+  ],
+  "disputes": [
+   "repeat_trend"
+  ],
+  "message": "You said repeat customers are increasing, but total visits dropped {customers_change_pct:.0f}%."
+ },
+ {
+  "id": "CK03",
+  "severity": "conflict",
+  "conditions": [
+   {
+    "fact": "supplier_prices_up",
+    "op": "false"
+   },
+   {
+    "fact": "food_cost_per_customer_change_pct",
+    "op": "ge",
+    "value": "$conflict_price"
+   }
+  ],
+  "disputes": [
+   "supplier_prices_up"
+  ],
+  "message": "You said supplier prices are stable, but food cost per customer rose {food_cost_per_customer_change_pct:.0f}%."
+ },
+ {
+  "id": "CK04",
+  "severity": "conflict",
+  "conditions": [
+   {
+    "fact": "idle_time",
+    "op": "true"
+   },
+   {
+    "fact": "weekday_customers_per_staff",
+    "op": "ge",
+    "value": "$cps_high"
+   }
+  ],
+  "disputes": [
+   "idle_time"
+  ],
+  "message": "You said staff are idle on weekdays, but each staff member serves {weekday_customers_per_staff:.0f} customers on weekdays."
+ },
+ {
+  "id": "CK05",
+  "severity": "conflict",
+  "conditions": [
+   {
+    "fact": "unsold_food",
+    "op": "true"
+   },
+   {
+    "fact": "wastage_pct",
+    "op": "le",
+    "value": 3
+   }
+  ],
+  "disputes": [
+   "unsold_food",
+   "wastage_pct"
+  ],
+  "message": "You report large unsold food at closing but wastage of only {wastage_pct:.0f}%."
+ },
+ {
+  "id": "CK06",
+  "severity": "conflict",
+  "conditions": [
+   {
+    "fact": "prep_bottleneck",
+    "op": "false"
+   },
+   {
+    "fact": "weekend_customers_per_staff",
+    "op": "ge",
+    "value": "$cps_extreme"
+   }
+  ],
+  "disputes": [
+   "prep_bottleneck"
+  ],
+  "message": "You said the kitchen is not a bottleneck, but weekends have {weekend_customers_per_staff:.0f} customers per staff member."
+ },
+ {
+  "id": "CK07",
+  "severity": "data",
+  "conditions": [
+   {
+    "fact": "profit_report_mismatch",
+    "op": "true"
+   }
+  ],
+  "disputes": [],
+  "message": "The profit you reported does not match revenue minus expenses. Please re-check the figures."
+ },
+ {
+  "id": "CK08",
+  "severity": "data",
+  "conditions": [
+   {
+    "fact": "monthly_customers_mismatch",
+    "op": "true"
+   }
+  ],
+  "disputes": [],
+  "message": "Monthly customers and daily customers (weekday/weekend) differ by more than 35%. One of them may be wrong."
+ },
+ {
+  "id": "CK09",
+  "severity": "data",
+  "conditions": [
+   {
+    "fact": "staff_exceeds_employees",
+    "op": "true"
+   }
+  ],
+  "disputes": [],
+  "message": "Staff on duty is higher than your total number of employees."
+ }
+]

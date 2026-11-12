@@ -1,0 +1,229 @@
+[
+ {
+  "id": "R51",
+  "kind": "diagnostic",
+  "category": "Debt & Stability",
+  "name": "Debt-to-equity indicating excessive leverage",
+  "conditions": [
+   {
+    "fact": "debt_to_equity",
+    "op": "gt",
+    "value": "$de_max"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_DEBT",
+    "cf": 0.5,
+    "group": "leverage"
+   }
+  ],
+  "explanation": "Debt is {debt_to_equity:.1f}x the owner's equity (warning level {de_max}x)."
+ },
+ {
+  "id": "R52",
+  "kind": "diagnostic",
+  "category": "Debt & Stability",
+  "name": "Loan instalments overdue",
+  "conditions": [
+   {
+    "fact": "overdue_installments",
+    "op": "ge",
+    "value": 1
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_DEBT",
+    "cf": 0.6
+   },
+   {
+    "hypothesis": "H_LIQUIDITY",
+    "cf": 0.3
+   }
+  ],
+  "explanation": "{overdue_installments:.0f} loan instalment(s) are overdue."
+ },
+ {
+  "id": "R53",
+  "kind": "diagnostic",
+  "category": "Debt & Stability",
+  "name": "Interest expenses increasing",
+  "conditions": [
+   {
+    "fact": "interest_change_pct",
+    "op": "ge",
+    "value": "$interest_rise"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_DEBT",
+    "cf": 0.35
+   }
+  ],
+  "explanation": "Interest expense rose by {interest_change_pct:.1f}%."
+ },
+ {
+  "id": "R54",
+  "kind": "diagnostic",
+  "category": "Debt & Stability",
+  "name": "Dependence on short-term borrowing",
+  "conditions": [
+   {
+    "fact": "short_term_debt_share_pct",
+    "op": "ge",
+    "value": "$std_share"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_DEBT",
+    "cf": 0.4
+   },
+   {
+    "hypothesis": "H_LIQUIDITY",
+    "cf": 0.25
+   }
+  ],
+  "explanation": "{short_term_debt_share_pct:.0f}% of debt is short-term and must be repaid soon."
+ },
+ {
+  "id": "R55",
+  "kind": "diagnostic",
+  "category": "Debt & Stability",
+  "name": "Debt increasing while revenue decreases",
+  "conditions": [
+   {
+    "fact": "debt_up_revenue_down",
+    "op": "true"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_DEBT",
+    "cf": 0.45
+   }
+  ],
+  "explanation": "Debt grew while revenue fell."
+ },
+ {
+  "id": "R56",
+  "kind": "diagnostic",
+  "category": "Debt & Stability",
+  "name": "Insufficient equity buffer",
+  "conditions": [
+   {
+    "fact": "equity_buffer_months",
+    "op": "lt",
+    "value": "$equity_buffer_min"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_DEBT",
+    "cf": 0.35,
+    "group": "leverage"
+   },
+   {
+    "hypothesis": "H_LIQUIDITY",
+    "cf": 0.2
+   }
+  ],
+  "explanation": "Owner's equity covers only {equity_buffer_months:.1f} months of expenses."
+ },
+ {
+  "id": "R57",
+  "kind": "diagnostic",
+  "category": "Debt & Stability",
+  "name": "Financial obligations concentrated in one period",
+  "conditions": [
+   {
+    "fact": "obligations_concentrated",
+    "op": "true"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_LIQUIDITY",
+    "cf": 0.35
+   }
+  ],
+  "explanation": "Most large payments fall due in the same week."
+ },
+ {
+  "id": "R58",
+  "kind": "diagnostic",
+  "category": "Debt & Stability",
+  "name": "Sustained losses reducing business capital",
+  "conditions": [
+   {
+    "fact": "loss_months_count",
+    "op": "ge",
+    "value": 3
+   },
+   {
+    "fact": "equity_buffer_months",
+    "op": "lt",
+    "value": "$equity_buffer_ok"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_DEBT",
+    "cf": 0.4
+   },
+   {
+    "hypothesis": "H_LIQUIDITY",
+    "cf": 0.3
+   }
+  ],
+  "explanation": "Losses for {loss_months_count:.0f} months with an equity buffer of only {equity_buffer_months:.1f} months are eroding capital."
+ },
+ {
+  "id": "R59",
+  "kind": "diagnostic",
+  "category": "Debt & Stability",
+  "name": "Supplier credit dependence increasing",
+  "conditions": [
+   {
+    "fact": "supplier_credit_dependence",
+    "op": "true"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_WCAP",
+    "cf": 0.35
+   },
+   {
+    "hypothesis": "H_LIQUIDITY",
+    "cf": 0.2
+   }
+  ],
+  "explanation": "The business relies more and more on supplier credit."
+ },
+ {
+  "id": "R60",
+  "kind": "diagnostic",
+  "category": "Debt & Stability",
+  "name": "Expansion financed without sufficient capacity",
+  "conditions": [
+   {
+    "fact": "expansion_financed_by_debt",
+    "op": "true"
+   },
+   {
+    "fact": "cash_stress",
+    "op": "true"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_DEBT",
+    "cf": 0.5
+   }
+  ],
+  "explanation": "Recent expansion was financed by borrowing while cash is under stress."
+ }
+]

@@ -1,0 +1,488 @@
+{
+ "revenue_decline_streak": {
+  "label": "Months of consecutive revenue decline",
+  "type": "number",
+  "source": "derived",
+  "unit": "months"
+ },
+ "revenue_change_pct": {
+  "label": "Revenue change vs last month",
+  "type": "number",
+  "source": "derived",
+  "unit": "%"
+ },
+ "revenue_cv_pct": {
+  "label": "Revenue volatility",
+  "type": "number",
+  "source": "derived",
+  "unit": "%"
+ },
+ "customers_change_pct": {
+  "label": "Customer visits change vs last month",
+  "type": "number",
+  "source": "derived",
+  "unit": "%"
+ },
+ "avg_ticket_change_pct": {
+  "label": "Average bill change vs last month",
+  "type": "number",
+  "source": "derived",
+  "unit": "%"
+ },
+ "weekend_weekday_ratio": {
+  "label": "Weekend / weekday customers",
+  "type": "number",
+  "source": "derived",
+  "unit": "x"
+ },
+ "food_cost_ratio": {
+  "label": "Food cost share of sales",
+  "type": "number",
+  "source": "derived",
+  "unit": "%"
+ },
+ "labour_cost_ratio": {
+  "label": "Labour cost share of sales",
+  "type": "number",
+  "source": "derived",
+  "unit": "%"
+ },
+ "rent_ratio": {
+  "label": "Rent share of sales",
+  "type": "number",
+  "source": "derived",
+  "unit": "%"
+ },
+ "utilities_change_pct": {
+  "label": "Utility bill change",
+  "type": "number",
+  "source": "derived",
+  "unit": "%"
+ },
+ "food_cost_per_customer_change_pct": {
+  "label": "Food cost per customer change",
+  "type": "number",
+  "source": "derived",
+  "unit": "%"
+ },
+ "gross_margin_pct": {
+  "label": "Gross margin (sales minus food cost)",
+  "type": "number",
+  "source": "derived",
+  "unit": "%"
+ },
+ "gross_margin_change_pts": {
+  "label": "Gross margin change over 3 months",
+  "type": "number",
+  "source": "derived",
+  "unit": "points"
+ },
+ "expense_growth_gap_pts": {
+  "label": "Expense growth minus revenue growth",
+  "type": "number",
+  "source": "derived",
+  "unit": "points"
+ },
+ "breakeven_gap_pct": {
+  "label": "Revenue above/below break-even",
+  "type": "number",
+  "source": "derived",
+  "unit": "%"
+ },
+ "net_profit": {
+  "label": "Net profit this month",
+  "type": "number",
+  "source": "derived",
+  "unit": "Rs"
+ },
+ "net_margin_pct": {
+  "label": "Net profit margin",
+  "type": "number",
+  "source": "derived",
+  "unit": "%"
+ },
+ "loss_months_count": {
+  "label": "Consecutive loss-making months",
+  "type": "number",
+  "source": "derived",
+  "unit": "months"
+ },
+ "cash_buffer_months": {
+  "label": "Cash buffer (months of expenses)",
+  "type": "number",
+  "source": "derived",
+  "unit": "months"
+ },
+ "current_ratio": {
+  "label": "Current ratio",
+  "type": "number",
+  "source": "derived",
+  "unit": "x"
+ },
+ "cash_change_pct": {
+  "label": "Cash change vs last month",
+  "type": "number",
+  "source": "derived",
+  "unit": "%"
+ },
+ "receivables_overdue_ratio": {
+  "label": "Overdue receivables share of sales",
+  "type": "number",
+  "source": "derived",
+  "unit": "%"
+ },
+ "payables_overdue_ratio": {
+  "label": "Overdue payables share of food purchases",
+  "type": "number",
+  "source": "derived",
+  "unit": "%"
+ },
+ "debt_service_burden_pct": {
+  "label": "Loan instalments share of sales",
+  "type": "number",
+  "source": "derived",
+  "unit": "%"
+ },
+ "dscr": {
+  "label": "Debt-service cover",
+  "type": "number",
+  "source": "derived",
+  "unit": "x"
+ },
+ "cash_conversion_days": {
+  "label": "Cash conversion cycle",
+  "type": "number",
+  "source": "derived",
+  "unit": "days"
+ },
+ "inventory_days": {
+  "label": "Days of stock on hand",
+  "type": "number",
+  "source": "derived",
+  "unit": "days"
+ },
+ "food_cost_variance_pct": {
+  "label": "Food cost above expected",
+  "type": "number",
+  "source": "derived",
+  "unit": "%"
+ },
+ "weekday_customers_per_staff": {
+  "label": "Weekday customers per staff member",
+  "type": "number",
+  "source": "derived",
+  "unit": "customers"
+ },
+ "weekend_customers_per_staff": {
+  "label": "Weekend customers per staff member",
+  "type": "number",
+  "source": "derived",
+  "unit": "customers"
+ },
+ "labour_hours_per_customer": {
+  "label": "Labour hours per customer",
+  "type": "number",
+  "source": "derived",
+  "unit": "hours",
+  "ask_via": [
+   "labour_hours_month"
+  ]
+ },
+ "schedule_alignment_index": {
+  "label": "Staffing vs demand alignment index",
+  "type": "number",
+  "source": "derived",
+  "unit": "x"
+ },
+ "sales_per_labour_hour_change_pct": {
+  "label": "Sales per labour hour change",
+  "type": "number",
+  "source": "derived",
+  "unit": "%"
+ },
+ "debt_to_equity": {
+  "label": "Debt to equity",
+  "type": "number",
+  "source": "derived",
+  "unit": "x"
+ },
+ "interest_change_pct": {
+  "label": "Interest expense change",
+  "type": "number",
+  "source": "derived",
+  "unit": "%"
+ },
+ "short_term_debt_share_pct": {
+  "label": "Short-term share of debt",
+  "type": "number",
+  "source": "derived",
+  "unit": "%"
+ },
+ "equity_buffer_months": {
+  "label": "Equity buffer (months of expenses)",
+  "type": "number",
+  "source": "derived",
+  "unit": "months"
+ },
+ "profit_but_cash_falling": {
+  "label": "Profit reported but cash falling",
+  "type": "boolean",
+  "source": "derived"
+ },
+ "debt_up_revenue_down": {
+  "label": "Debt rising while revenue falls",
+  "type": "boolean",
+  "source": "derived"
+ },
+ "profit_report_mismatch": {
+  "label": "Reported profit does not match revenue minus expenses",
+  "type": "boolean",
+  "source": "derived"
+ },
+ "monthly_customers_mismatch": {
+  "label": "Monthly customers do not match daily customers",
+  "type": "boolean",
+  "source": "derived"
+ },
+ "staff_exceeds_employees": {
+  "label": "Staff on duty exceeds total employees",
+  "type": "boolean",
+  "source": "derived"
+ },
+ "cash_stress": {
+  "label": "Cash under stress",
+  "type": "boolean",
+  "source": "asserted"
+ },
+ "labour_misaligned": {
+  "label": "Staffing misaligned with demand",
+  "type": "boolean",
+  "source": "asserted"
+ },
+ "margin_squeeze": {
+  "label": "Margins under squeeze",
+  "type": "boolean",
+  "source": "asserted"
+ },
+ "discount_pct": {
+  "label": "Discounts given (% of sales)",
+  "type": "number",
+  "source": "input",
+  "unit": "%",
+  "askable": true,
+  "question": "Roughly what share of your sales goes out as discounts and offers? Type a number (e.g. 8) or a word (low / medium / high).",
+  "qualitative": {
+   "none": 0,
+   "low": 3,
+   "medium": 8,
+   "high": 15,
+   "very high": 25
+  }
+ },
+ "wastage_pct": {
+  "label": "Food wastage (% of food bought)",
+  "type": "number",
+  "source": "input",
+  "unit": "%",
+  "askable": true,
+  "question": "Roughly what percentage of the food you buy gets wasted? Type a number (e.g. 15) or a word (low / medium / high).",
+  "qualitative": {
+   "none": 1,
+   "low": 4,
+   "medium": 9,
+   "high": 16,
+   "very high": 25
+  }
+ },
+ "overdue_installments": {
+  "label": "Overdue loan instalments",
+  "type": "number",
+  "source": "input",
+  "unit": "count",
+  "askable": true,
+  "question": "How many loan instalments are currently overdue? Type a number (0 if none).",
+  "qualitative": {
+   "none": 0,
+   "one": 1,
+   "two": 2,
+   "many": 3
+  }
+ },
+ "labour_hours_month": {
+  "label": "Labour hours worked this month",
+  "type": "number",
+  "source": "input",
+  "unit": "hours",
+  "askable": true,
+  "question": "About how many total staff working hours were there this month? Type a number if you know it."
+ },
+ "cancellations_up": {
+  "label": "Order cancellations increasing",
+  "type": "boolean",
+  "source": "question",
+  "askable": true,
+  "question": "Have order cancellations (by customers or by you) increased recently?"
+ },
+ "delivery_declining": {
+  "label": "Delivery orders declining",
+  "type": "boolean",
+  "source": "question",
+  "askable": true,
+  "question": "Have your delivery or takeaway orders gone down in the last two months?"
+ },
+ "discount_dependence": {
+  "label": "Sales depend on discounts",
+  "type": "boolean",
+  "source": "question",
+  "askable": true,
+  "question": "When you stop a discount or offer, do your sales drop sharply?"
+ },
+ "supplier_prices_up": {
+  "label": "Supplier prices increased",
+  "type": "boolean",
+  "source": "question",
+  "askable": true,
+  "question": "Have your suppliers increased their prices over the last three months?"
+ },
+ "cash_volatile": {
+  "label": "Cash balance swings widely",
+  "type": "boolean",
+  "source": "question",
+  "askable": true,
+  "question": "Does your cash balance swing a lot from week to week (for example, very low just before payday)?"
+ },
+ "unsold_food": {
+  "label": "Large unsold prepared food at closing",
+  "type": "boolean",
+  "source": "question",
+  "askable": true,
+  "question": "At closing time, is a large amount of prepared food often left unsold?"
+ },
+ "expiry_before_use": {
+  "label": "Perishables expire before use",
+  "type": "boolean",
+  "source": "question",
+  "askable": true,
+  "question": "Do vegetables, meat, dairy or other perishables often expire before you use them?"
+ },
+ "overstocking": {
+  "label": "Buying more than needed",
+  "type": "boolean",
+  "source": "question",
+  "askable": true,
+  "question": "Do you often buy more stock than you need (for example, because of bulk-buy discounts)?"
+ },
+ "prep_same_weekday_weekend": {
+  "label": "Same preparation on all days",
+  "type": "boolean",
+  "source": "question",
+  "askable": true,
+  "question": "Do you prepare roughly the same amount of food on weekdays as on weekends?"
+ },
+ "supplier_delays": {
+  "label": "Supplier deliveries often late",
+  "type": "boolean",
+  "source": "question",
+  "askable": true,
+  "question": "Do supplier deliveries often arrive late?"
+ },
+ "low_margin_bestsellers": {
+  "label": "Best-sellers have low margins",
+  "type": "boolean",
+  "source": "question",
+  "askable": true,
+  "question": "Are your best-selling dishes the ones with the lowest profit per plate?"
+ },
+ "overtime_increasing": {
+  "label": "Overtime increasing",
+  "type": "boolean",
+  "source": "question",
+  "askable": true,
+  "question": "Has the money you pay for overtime increased recently?"
+ },
+ "absenteeism": {
+  "label": "Absenteeism affecting service",
+  "type": "boolean",
+  "source": "question",
+  "askable": true,
+  "question": "Do staff absences (especially on busy days) disturb your service?"
+ },
+ "staff_turnover": {
+  "label": "Frequent staff turnover",
+  "type": "boolean",
+  "source": "question",
+  "askable": true,
+  "question": "Do staff leave frequently, so you keep hiring and training new people?"
+ },
+ "idle_time": {
+  "label": "Staff idle on quiet days",
+  "type": "boolean",
+  "source": "question",
+  "askable": true,
+  "question": "On quiet weekdays, are staff often standing idle with little to do?"
+ },
+ "prep_bottleneck": {
+  "label": "Kitchen/prep bottleneck delays orders",
+  "type": "boolean",
+  "source": "question",
+  "askable": true,
+  "question": "During rush hours, are orders delayed because the kitchen or prep area cannot keep up?"
+ },
+ "obligations_concentrated": {
+  "label": "Payments concentrated in one period",
+  "type": "boolean",
+  "source": "question",
+  "askable": true,
+  "question": "Are most of your big payments (rent, salaries, loans, suppliers) due in the same week?"
+ },
+ "supplier_credit_dependence": {
+  "label": "Increasing reliance on supplier credit",
+  "type": "boolean",
+  "source": "question",
+  "askable": true,
+  "question": "Are you relying more and more on supplier credit to keep the restaurant running?"
+ },
+ "expansion_financed_by_debt": {
+  "label": "Expansion financed by borrowing",
+  "type": "boolean",
+  "source": "question",
+  "askable": true,
+  "question": "Did you recently expand (new branch, renovation, equipment) using borrowed money?"
+ },
+ "orders_trend": {
+  "label": "Daily orders trend",
+  "type": "ordinal",
+  "source": "question",
+  "askable": true,
+  "question": "Compared with 3 months ago, are your daily orders:",
+  "options": [
+   "increasing",
+   "stable",
+   "decreasing"
+  ]
+ },
+ "repeat_trend": {
+  "label": "Repeat customers trend",
+  "type": "ordinal",
+  "source": "question",
+  "askable": true,
+  "question": "Compared with 3 months ago, are regular (repeat) customers:",
+  "options": [
+   "increasing",
+   "stable",
+   "decreasing"
+  ]
+ },
+ "stockouts": {
+  "label": "How often items run out",
+  "type": "ordinal",
+  "source": "question",
+  "askable": true,
+  "question": "How often do popular items run out while customers are still ordering?",
+  "options": [
+   "never",
+   "sometimes",
+   "often"
+  ]
+ }
+}

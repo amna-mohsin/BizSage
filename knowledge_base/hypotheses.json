@@ -1,0 +1,80 @@
+{
+ "H_DEMAND": {
+  "name": "Declining customer demand",
+  "category": "Revenue & Demand",
+  "problem": "staffing",
+  "investigate": "Check footfall by time of day, nearby competition, marketing and online reviews."
+ },
+ "H_RETENTION": {
+  "name": "Weak customer retention or service quality",
+  "category": "Revenue & Demand",
+  "problem": "margin",
+  "investigate": "Review customer complaints, order accuracy, waiting time and loyalty offers."
+ },
+ "H_PRICING": {
+  "name": "Pricing and discount policy eroding margins",
+  "category": "Expenses & Profitability",
+  "problem": "margin",
+  "investigate": "Review discount frequency, menu prices and the average bill."
+ },
+ "H_FOODCOST": {
+  "name": "Rising food and ingredient costs",
+  "category": "Expenses & Profitability",
+  "problem": "margin",
+  "investigate": "Compare supplier quotes, check portion sizes and recipe costing."
+ },
+ "H_WASTAGE": {
+  "name": "Food wastage and over-preparation",
+  "category": "Inventory & Wastage",
+  "problem": "margin",
+  "investigate": "Track daily unsold food and prepare according to weekday/weekend demand."
+ },
+ "H_INVENTORY": {
+  "name": "Weak inventory and procurement control",
+  "category": "Inventory & Wastage",
+  "problem": "margin",
+  "investigate": "Introduce stock counts, reorder levels and first-in-first-out storage."
+ },
+ "H_MENU": {
+  "name": "Low-margin menu mix",
+  "category": "Inventory & Wastage",
+  "problem": "margin",
+  "investigate": "Cost every dish and promote high-margin items."
+ },
+ "H_LABOUR": {
+  "name": "Staffing not matched to demand",
+  "category": "Staffing & Operations",
+  "problem": "staffing",
+  "investigate": "Compare staff on duty with customers per day and shift."
+ },
+ "H_CAPACITY": {
+  "name": "Service capacity and staff reliability problem",
+  "category": "Staffing & Operations",
+  "problem": "staffing",
+  "investigate": "Check weekend peak capacity, absenteeism and kitchen bottlenecks."
+ },
+ "H_FIXED": {
+  "name": "Heavy fixed-cost burden (rent, utilities)",
+  "category": "Expenses & Profitability",
+  "problem": "margin",
+  "investigate": "Review rent agreement, utility usage and operating hours."
+ },
+ "H_LIQUIDITY": {
+  "name": "Cash-flow and liquidity pressure",
+  "category": "Cash Flow & Liquidity",
+  "problem": "cash",
+  "investigate": "Build a weekly cash forecast and a minimum cash buffer."
+ },
+ "H_WCAP": {
+  "name": "Working-capital imbalance (receivables, payables, stock)",
+  "category": "Cash Flow & Liquidity",
+  "problem": "cash",
+  "investigate": "Follow up overdue receivables, negotiate supplier terms, reduce stock holding."
+ },
+ "H_DEBT": {
+  "name": "Debt and financing burden",
+  "category": "Debt & Stability",
+  "problem": "cash",
+  "investigate": "Review loan terms, instalment dates and interest cost."
+ }
+}

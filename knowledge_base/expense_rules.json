@@ -1,0 +1,253 @@
+[
+ {
+  "id": "R11",
+  "kind": "diagnostic",
+  "category": "Expenses & Profitability",
+  "name": "Food cost ratio excessively high",
+  "conditions": [
+   {
+    "fact": "food_cost_ratio",
+    "op": "ge",
+    "value": "$food_cost_high"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_FOODCOST",
+    "cf": 0.5
+   },
+   {
+    "hypothesis": "H_WASTAGE",
+    "cf": 0.15
+   }
+  ],
+  "explanation": "Food cost is {food_cost_ratio:.1f}% of sales (the system uses {food_cost_high}% as a warning level).",
+  "next_question": "supplier_prices_up",
+  "asserts": [
+   {
+    "fact": "margin_squeeze",
+    "value": true
+   }
+  ]
+ },
+ {
+  "id": "R12",
+  "kind": "diagnostic",
+  "category": "Expenses & Profitability",
+  "name": "Labour cost ratio excessively high",
+  "conditions": [
+   {
+    "fact": "labour_cost_ratio",
+    "op": "ge",
+    "value": "$labour_high"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_LABOUR",
+    "cf": 0.55,
+    "group": "labour_cost"
+   }
+  ],
+  "explanation": "Labour cost is {labour_cost_ratio:.1f}% of sales (warning level {labour_high}%).",
+  "next_question": "idle_time"
+ },
+ {
+  "id": "R13",
+  "kind": "diagnostic",
+  "category": "Expenses & Profitability",
+  "name": "Rent disproportionately high",
+  "conditions": [
+   {
+    "fact": "rent_ratio",
+    "op": "ge",
+    "value": "$rent_high"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_FIXED",
+    "cf": 0.6
+   }
+  ],
+  "explanation": "Rent is {rent_ratio:.1f}% of sales (warning level {rent_high}%)."
+ },
+ {
+  "id": "R14",
+  "kind": "diagnostic",
+  "category": "Expenses & Profitability",
+  "name": "Electricity and utility expenses increasing",
+  "conditions": [
+   {
+    "fact": "utilities_change_pct",
+    "op": "ge",
+    "value": "$util_rise"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_FIXED",
+    "cf": 0.4
+   }
+  ],
+  "explanation": "Utility bills rose by {utilities_change_pct:.1f}%."
+ },
+ {
+  "id": "R15",
+  "kind": "diagnostic",
+  "category": "Expenses & Profitability",
+  "name": "Food cost per customer increasing",
+  "conditions": [
+   {
+    "fact": "food_cost_per_customer_change_pct",
+    "op": "ge",
+    "value": "$price_rise"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_FOODCOST",
+    "cf": 0.55,
+    "group": "food_price"
+   }
+  ],
+  "explanation": "Food cost per customer rose by {food_cost_per_customer_change_pct:.1f}%.",
+  "next_question": "supplier_prices_up"
+ },
+ {
+  "id": "R16",
+  "kind": "diagnostic",
+  "category": "Expenses & Profitability",
+  "name": "Gross profit margin declining",
+  "conditions": [
+   {
+    "fact": "gross_margin_change_pts",
+    "op": "le",
+    "value": "-$margin_drop_pts"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_FOODCOST",
+    "cf": 0.4
+   },
+   {
+    "hypothesis": "H_MENU",
+    "cf": 0.3
+   }
+  ],
+  "explanation": "Gross margin fell by {gross_margin_change_pts:.1f} percentage points over three months.",
+  "asserts": [
+   {
+    "fact": "margin_squeeze",
+    "value": true
+   }
+  ]
+ },
+ {
+  "id": "R17",
+  "kind": "diagnostic",
+  "category": "Expenses & Profitability",
+  "name": "Operating expenses growing faster than revenue",
+  "conditions": [
+   {
+    "fact": "expense_growth_gap_pts",
+    "op": "ge",
+    "value": "$gap_pts"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_LABOUR",
+    "cf": 0.2
+   },
+   {
+    "hypothesis": "H_FOODCOST",
+    "cf": 0.2
+   },
+   {
+    "hypothesis": "H_FIXED",
+    "cf": 0.2
+   }
+  ],
+  "explanation": "Expenses grew {expense_growth_gap_pts:.1f} points faster than revenue."
+ },
+ {
+  "id": "R18",
+  "kind": "diagnostic",
+  "category": "Expenses & Profitability",
+  "name": "Operating below break-even revenue",
+  "conditions": [
+   {
+    "fact": "breakeven_gap_pct",
+    "op": "lt",
+    "value": 0
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_DEMAND",
+    "cf": 0.3
+   },
+   {
+    "hypothesis": "H_FIXED",
+    "cf": 0.3
+   }
+  ],
+  "explanation": "Revenue is {breakeven_gap_pct:.1f}% below the break-even level."
+ },
+ {
+  "id": "R19",
+  "kind": "diagnostic",
+  "category": "Expenses & Profitability",
+  "name": "Discounts reducing contribution margins",
+  "conditions": [
+   {
+    "fact": "discount_pct",
+    "op": "ge",
+    "value": "$discount_margin"
+   },
+   {
+    "fact": "gross_margin_pct",
+    "op": "le",
+    "value": "$margin_low"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_PRICING",
+    "cf": 0.5
+   }
+  ],
+  "explanation": "Discounts of {discount_pct:.0f}% together with a gross margin of only {gross_margin_pct:.1f}% leave little room for profit."
+ },
+ {
+  "id": "R20",
+  "kind": "diagnostic",
+  "category": "Expenses & Profitability",
+  "name": "Net profit consistently negative",
+  "conditions": [
+   {
+    "fact": "loss_months_count",
+    "op": "ge",
+    "value": "$loss_streak"
+   },
+   {
+    "fact": "net_margin_pct",
+    "op": "le",
+    "value": -3
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_LIQUIDITY",
+    "cf": 0.35
+   },
+   {
+    "hypothesis": "H_FIXED",
+    "cf": 0.2
+   }
+  ],
+  "explanation": "The business has made a loss for {loss_months_count:.0f} months in a row."
+ }
+]

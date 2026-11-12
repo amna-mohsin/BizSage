@@ -1,0 +1,224 @@
+[
+ {
+  "id": "R21",
+  "kind": "diagnostic",
+  "category": "Cash Flow & Liquidity",
+  "name": "Cash reserves below operating buffer",
+  "conditions": [
+   {
+    "fact": "cash_buffer_months",
+    "op": "lt",
+    "value": "$cash_buffer_min"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_LIQUIDITY",
+    "cf": 0.6,
+    "group": "liquidity_level"
+   }
+  ],
+  "explanation": "Cash covers only {cash_buffer_months:.1f} months of expenses.",
+  "asserts": [
+   {
+    "fact": "cash_stress",
+    "value": true
+   }
+  ]
+ },
+ {
+  "id": "R22",
+  "kind": "diagnostic",
+  "category": "Cash Flow & Liquidity",
+  "name": "Current ratio indicating liquidity pressure",
+  "conditions": [
+   {
+    "fact": "current_ratio",
+    "op": "lt",
+    "value": "$current_ratio_min"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_LIQUIDITY",
+    "cf": 0.5,
+    "group": "liquidity_level"
+   }
+  ],
+  "explanation": "Current ratio is {current_ratio:.2f}: short-term obligations exceed short-term assets.",
+  "asserts": [
+   {
+    "fact": "cash_stress",
+    "value": true
+   }
+  ]
+ },
+ {
+  "id": "R23",
+  "kind": "diagnostic",
+  "category": "Cash Flow & Liquidity",
+  "name": "Cash balance fell sharply",
+  "conditions": [
+   {
+    "fact": "cash_change_pct",
+    "op": "le",
+    "value": "-$cash_drop_pct"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_LIQUIDITY",
+    "cf": 0.45
+   }
+  ],
+  "explanation": "Cash changed by {cash_change_pct:.0f}% since last month."
+ },
+ {
+  "id": "R24",
+  "kind": "diagnostic",
+  "category": "Cash Flow & Liquidity",
+  "name": "Customer receivables overdue",
+  "conditions": [
+   {
+    "fact": "receivables_overdue_ratio",
+    "op": "ge",
+    "value": "$recv_overdue"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_WCAP",
+    "cf": 0.55
+   }
+  ],
+  "explanation": "Overdue receivables equal {receivables_overdue_ratio:.1f}% of monthly sales."
+ },
+ {
+  "id": "R25",
+  "kind": "diagnostic",
+  "category": "Cash Flow & Liquidity",
+  "name": "Supplier payments overdue",
+  "conditions": [
+   {
+    "fact": "payables_overdue_ratio",
+    "op": "ge",
+    "value": "$pay_overdue"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_WCAP",
+    "cf": 0.45
+   },
+   {
+    "hypothesis": "H_LIQUIDITY",
+    "cf": 0.25
+   }
+  ],
+  "explanation": "Overdue supplier payments equal {payables_overdue_ratio:.1f}% of monthly food purchases."
+ },
+ {
+  "id": "R26",
+  "kind": "diagnostic",
+  "category": "Cash Flow & Liquidity",
+  "name": "Debt repayment burden excessive",
+  "conditions": [
+   {
+    "fact": "debt_service_burden_pct",
+    "op": "ge",
+    "value": "$dsb_high"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_DEBT",
+    "cf": 0.5,
+    "group": "debt_service"
+   }
+  ],
+  "explanation": "Loan instalments take {debt_service_burden_pct:.1f}% of sales."
+ },
+ {
+  "id": "R27",
+  "kind": "diagnostic",
+  "category": "Cash Flow & Liquidity",
+  "name": "Debt-service capacity insufficient",
+  "conditions": [
+   {
+    "fact": "dscr",
+    "op": "lt",
+    "value": "$dscr_min"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_DEBT",
+    "cf": 0.55,
+    "group": "debt_service"
+   }
+  ],
+  "explanation": "Debt-service cover is {dscr:.2f}: profit barely covers (or does not cover) loan instalments."
+ },
+ {
+  "id": "R28",
+  "kind": "diagnostic",
+  "category": "Cash Flow & Liquidity",
+  "name": "Cash conversion cycle too long",
+  "conditions": [
+   {
+    "fact": "cash_conversion_days",
+    "op": "gt",
+    "value": "$ccc_max"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_WCAP",
+    "cf": 0.4
+   }
+  ],
+  "explanation": "Cash is tied up in stock and receivables for about {cash_conversion_days:.0f} days."
+ },
+ {
+  "id": "R29",
+  "kind": "diagnostic",
+  "category": "Cash Flow & Liquidity",
+  "name": "Cash balance fluctuating significantly",
+  "conditions": [
+   {
+    "fact": "cash_volatile",
+    "op": "true"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_LIQUIDITY",
+    "cf": 0.3
+   }
+  ],
+  "explanation": "The owner reports large swings in the cash balance."
+ },
+ {
+  "id": "R30",
+  "kind": "diagnostic",
+  "category": "Cash Flow & Liquidity",
+  "name": "Reported profit inconsistent with available cash",
+  "conditions": [
+   {
+    "fact": "profit_but_cash_falling",
+    "op": "true"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_WCAP",
+    "cf": 0.4
+   },
+   {
+    "hypothesis": "H_LIQUIDITY",
+    "cf": 0.3
+   }
+  ],
+  "explanation": "The business shows a profit but cash is falling, so money is stuck somewhere (stock, credit, loans)."
+ }
+]

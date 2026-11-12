@@ -1,0 +1,63 @@
+{
+ 
+"_note": "Demonstration cases created for this project. They do not represent real businesses or records.",
+ "karachi_family_restaurant": {
+  "title": "Karachi family restaurant: falling sales, heavy staff, high wastage",
+  "profile": {"name": "Zaiqa Family Restaurant (Demo Data)", "city": "Karachi", "type": "Family dine-in restaurant", "employees_total": 14, "seats": 80, "years_open": 6},
+  "history": [
+   {"revenue": 650000, "expenses": 560000, "customers": 3900, "food_cost": 210000},
+   {"revenue": 620000, "expenses": 555000, "customers": 3700, "food_cost": 205000},
+   {"revenue": 600000, "expenses": 545000, "customers": 3500, "food_cost": 200000},
+   {"revenue": 560000, "expenses": 520000, "customers": 3200, "food_cost": 190000},
+   {"revenue": 500000, "expenses": 480000, "customers": 2900, "food_cost": 180000},
+   {"revenue": 450000, "expenses": 430000, "customers": 2650, "food_cost": 170000}],
+  "raw": {"weekday_customers_per_day": 55, "weekend_customers_per_day": 180, "weekday_staff": 12, "weekend_staff": 12, "avg_daily_wage": 450,
+          "labour_cost": 165000, "rent": 60000, "utilities": 40000, "utilities_prev": 38000, "cash_on_hand": 60000, "cash_last_month": 75000,
+          "receivables_total": 20000, "receivables_overdue": 5000, "payables_total": 90000, "payables_overdue": 20000, "total_debt": 300000,
+          "total_debt_prev": 300000, "short_term_debt": 100000, "monthly_installment": 25000, "interest_expense": 6000, "interest_expense_prev": 6000,
+          "equity": 500000, "inventory_value": 70000, "wastage_pct": 18, "discount_pct": 6, "overdue_installments": 0},
+  "expected_answers_hint": "Try: weekday idle time = Yes; supplier prices increased = No; same preparation on all days = Yes."
+ },
+ "lahore_cafe_cash_pressure": {
+  "title": "Lahore cafe: profitable on paper, short of cash, heavy borrowing",
+  "profile": {"name": "Chai & Co Cafe (Demo Data)", "city": "Lahore", "type": "Cafe", "employees_total": 8, "seats": 40, "years_open": 3},
+  "history": [
+   {"revenue": 380000, "expenses": 330000, "customers": 4100, "food_cost": 120000},
+   {"revenue": 395000, "expenses": 350000, "customers": 4200, "food_cost": 128000},
+   {"revenue": 400000, "expenses": 365000, "customers": 4150, "food_cost": 132000},
+   {"revenue": 410000, "expenses": 380000, "customers": 4250, "food_cost": 140000},
+   {"revenue": 405000, "expenses": 392000, "customers": 4200, "food_cost": 146000},
+   {"revenue": 415000, "expenses": 398000, "customers": 4300, "food_cost": 150000}],
+  "raw": {"weekday_customers_per_day": 130, "weekend_customers_per_day": 170, "weekday_staff": 6, "weekend_staff": 7, "avg_daily_wage": 700,
+          "labour_cost": 120000, "rent": 70000, "utilities": 30000, "cash_on_hand": 25000, "cash_last_month": 60000, "receivables_total": 80000,
+          "receivables_overdue": 55000, "payables_total": 140000, "payables_overdue": 70000, "total_debt": 1200000, "total_debt_prev": 900000,
+          "short_term_debt": 800000, "monthly_installment": 60000, "interest_expense": 22000, "interest_expense_prev": 15000, "equity": 400000,
+          "inventory_value": 60000, "wastage_pct": 6, "discount_pct": 4, "overdue_installments": 1},
+  "expected_answers_hint": "Try: expansion financed by debt = Yes; payments concentrated in one week = Yes; supplier credit dependence = Yes."
+ },
+ "highway_dhaba_weekend_peak": {
+  "title": "Highway restaurant (daily-wage staff): huge weekend rush, quiet weekdays",
+  "profile": {"name": "Sarai Highway Restaurant (Demo Data)", "city": "Hyderabad (Highway)", "type": "Highway restaurant", "employees_total": 24, "seats": 150, "years_open": 9},
+  "history": [
+   {"revenue": 900000, "expenses": 780000, "customers": 5200, "food_cost": 300000},
+   {"revenue": 880000, "expenses": 790000, "customers": 5100, "food_cost": 305000},
+   {"revenue": 910000, "expenses": 800000, "customers": 5300, "food_cost": 310000},
+   {"revenue": 890000, "expenses": 805000, "customers": 5150, "food_cost": 312000},
+   {"revenue": 870000, "expenses": 810000, "customers": 5000, "food_cost": 315000},
+   {"revenue": 860000, "expenses": 815000, "customers": 4950, "food_cost": 318000}],
+  "raw": {"weekday_customers_per_day": 90, "weekend_customers_per_day": 420, "weekday_staff": 22, "weekend_staff": 24, "avg_daily_wage": 700,
+          "labour_cost": 330000, "rent": 90000, "utilities": 70000, "cash_on_hand": 400000, "cash_last_month": 420000, "receivables_total": 30000,
+          "receivables_overdue": 0, "payables_total": 120000, "payables_overdue": 0, "total_debt": 400000, "total_debt_prev": 420000, "short_term_debt": 80000,
+          "monthly_installment": 30000, "interest_expense": 7000, "interest_expense_prev": 7500, "equity": 3000000, "inventory_value": 110000,
+          "wastage_pct": 12, "discount_pct": 2, "overdue_installments": 0},
+  "expected_answers_hint": "Try: staff idle on quiet days = Yes; kitchen bottleneck at rush = Yes; same preparation on all days = Yes."
+ },
+ "branches": {
+  "title": "Demo Data chain 'Chai Wala': three branches (sample for the Branch & franchise decision)",
+  "reference": "DHA (oldest branch)",
+  "branches": [
+   {"name": "DHA (oldest branch)", "seats": 60, "staff": 12, "revenue": [500000, 520000, 540000, 560000, 580000, 600000], "expenses": [450000, 455000, 460000, 465000, 470000, 475000], "customers": [4000, 4100, 4200, 4300, 4400, 4500]},
+   {"name": "Gulshan", "seats": 50, "staff": 10, "revenue": [400000, 390000, 375000, 360000, 340000, 320000], "expenses": [380000, 380000, 378000, 376000, 375000, 374000], "customers": [3200, 3100, 3000, 2900, 2700, 2500]},
+   {"name": "Clifton", "seats": 40, "staff": 9, "revenue": [300000, 295000, 280000, 265000, 250000, 235000], "expenses": [290000, 290000, 288000, 286000, 285000, 284000], "customers": [2400, 2350, 2250, 2100, 2000, 1850]}]
+ }
+}

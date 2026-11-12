@@ -1,0 +1,54 @@
+[
+ {
+  "id": "C01",
+  "kind": "chained",
+  "category": "Chained",
+  "name": "Staffing mismatch confirmed by weekend demand",
+  "conditions": [
+   {
+    "fact": "labour_misaligned",
+    "op": "true"
+   },
+   {
+    "fact": "weekend_weekday_ratio",
+    "op": "ge",
+    "value": 2
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_LABOUR",
+    "cf": 0.35
+   },
+   {
+    "hypothesis": "H_CAPACITY",
+    "cf": 0.25
+   }
+  ],
+  "explanation": "Earlier rules found staffing misaligned with demand, and weekend demand is {weekend_weekday_ratio:.1f}x weekday demand: a demand-based staffing gap."
+ },
+ {
+  "id": "C02",
+  "kind": "chained",
+  "category": "Chained",
+  "name": "Margin squeeze made worse by discounting",
+  "conditions": [
+   {
+    "fact": "margin_squeeze",
+    "op": "true"
+   },
+   {
+    "fact": "discount_pct",
+    "op": "ge",
+    "value": "$discount_ok"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_PRICING",
+    "cf": 0.35
+   }
+  ],
+  "explanation": "Earlier rules found margins under squeeze, and discounts of {discount_pct:.0f}% make it worse."
+ }
+]

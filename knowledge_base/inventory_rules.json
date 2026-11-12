@@ -1,0 +1,219 @@
+[
+ {
+  "id": "R31",
+  "kind": "diagnostic",
+  "category": "Inventory & Wastage",
+  "name": "Food wastage above acceptable threshold",
+  "conditions": [
+   {
+    "fact": "wastage_pct",
+    "op": "ge",
+    "value": "$wastage_high"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_WASTAGE",
+    "cf": 0.6,
+    "group": "waste_level"
+   }
+  ],
+  "explanation": "Food wastage is about {wastage_pct:.0f}% (warning level {wastage_high}%).",
+  "next_question": "prep_same_weekday_weekend"
+ },
+ {
+  "id": "R32",
+  "kind": "diagnostic",
+  "category": "Inventory & Wastage",
+  "name": "Frequent stock shortages",
+  "conditions": [
+   {
+    "fact": "stockouts",
+    "op": "in",
+    "value": [
+     "often"
+    ]
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_INVENTORY",
+    "cf": 0.5
+   }
+  ],
+  "explanation": "Popular items often run out while customers are still ordering."
+ },
+ {
+  "id": "R33",
+  "kind": "diagnostic",
+  "category": "Inventory & Wastage",
+  "name": "Excess unsold prepared food",
+  "conditions": [
+   {
+    "fact": "unsold_food",
+    "op": "true"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_WASTAGE",
+    "cf": 0.5,
+    "group": "waste_level"
+   }
+  ],
+  "explanation": "A large amount of prepared food is often left unsold at closing."
+ },
+ {
+  "id": "R34",
+  "kind": "diagnostic",
+  "category": "Inventory & Wastage",
+  "name": "Inventory turnover too low",
+  "conditions": [
+   {
+    "fact": "inventory_days",
+    "op": "gt",
+    "value": "$inventory_days_max"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_INVENTORY",
+    "cf": 0.5
+   }
+  ],
+  "explanation": "Stock on hand would last about {inventory_days:.0f} days, long for perishable food."
+ },
+ {
+  "id": "R35",
+  "kind": "diagnostic",
+  "category": "Inventory & Wastage",
+  "name": "Perishables expiring before use",
+  "conditions": [
+   {
+    "fact": "expiry_before_use",
+    "op": "true"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_INVENTORY",
+    "cf": 0.45
+   },
+   {
+    "hypothesis": "H_WASTAGE",
+    "cf": 0.3
+   }
+  ],
+  "explanation": "Perishable items often expire before they are used."
+ },
+ {
+  "id": "R36",
+  "kind": "diagnostic",
+  "category": "Inventory & Wastage",
+  "name": "Overstocking relative to demand",
+  "conditions": [
+   {
+    "fact": "overstocking",
+    "op": "true"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_INVENTORY",
+    "cf": 0.4
+   }
+  ],
+  "explanation": "The owner buys more stock than needed (for example because of bulk discounts)."
+ },
+ {
+  "id": "R37",
+  "kind": "diagnostic",
+  "category": "Inventory & Wastage",
+  "name": "Same preparation quantity despite uneven demand",
+  "conditions": [
+   {
+    "fact": "prep_same_weekday_weekend",
+    "op": "true"
+   },
+   {
+    "fact": "weekend_weekday_ratio",
+    "op": "ge",
+    "value": "$prep_ratio"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_WASTAGE",
+    "cf": 0.5
+   }
+  ],
+  "explanation": "Food is prepared in the same quantity every day although weekend demand is {weekend_weekday_ratio:.1f}x weekday demand.",
+  "next_question": "unsold_food"
+ },
+ {
+  "id": "R38",
+  "kind": "diagnostic",
+  "category": "Inventory & Wastage",
+  "name": "Supplier deliveries frequently delayed",
+  "conditions": [
+   {
+    "fact": "supplier_delays",
+    "op": "true"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_INVENTORY",
+    "cf": 0.35
+   },
+   {
+    "hypothesis": "H_FOODCOST",
+    "cf": 0.15
+   }
+  ],
+  "explanation": "Supplier deliveries often arrive late."
+ },
+ {
+  "id": "R39",
+  "kind": "diagnostic",
+  "category": "Inventory & Wastage",
+  "name": "Purchase costs deviating from expected costs",
+  "conditions": [
+   {
+    "fact": "food_cost_variance_pct",
+    "op": "ge",
+    "value": "$variance_high"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_FOODCOST",
+    "cf": 0.4
+   },
+   {
+    "hypothesis": "H_INVENTORY",
+    "cf": 0.25
+   }
+  ],
+  "explanation": "Actual food cost is {food_cost_variance_pct:.1f}% above the expected (budgeted) cost."
+ },
+ {
+  "id": "R40",
+  "kind": "diagnostic",
+  "category": "Inventory & Wastage",
+  "name": "Menu items with insufficient contribution margins",
+  "conditions": [
+   {
+    "fact": "low_margin_bestsellers",
+    "op": "true"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_MENU",
+    "cf": 0.6
+   }
+  ],
+  "explanation": "Best-selling dishes are the ones that earn the least profit per plate."
+ }
+]

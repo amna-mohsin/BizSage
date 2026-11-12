@@ -1,0 +1,223 @@
+[
+ {
+  "id": "R41",
+  "kind": "diagnostic",
+  "category": "Staffing & Operations",
+  "name": "Weekday staffing exceeding customer demand",
+  "conditions": [
+   {
+    "fact": "weekday_customers_per_staff",
+    "op": "le",
+    "value": "$cps_low"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_LABOUR",
+    "cf": 0.55,
+    "group": "weekday_overstaffing"
+   }
+  ],
+  "explanation": "Only {weekday_customers_per_staff:.1f} customers per staff member on weekdays (warning level {cps_low}).",
+  "asserts": [
+   {
+    "fact": "labour_misaligned",
+    "value": true
+   }
+  ]
+ },
+ {
+  "id": "R42",
+  "kind": "diagnostic",
+  "category": "Staffing & Operations",
+  "name": "Weekend staffing insufficient for demand",
+  "conditions": [
+   {
+    "fact": "weekend_customers_per_staff",
+    "op": "ge",
+    "value": "$cps_high"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_CAPACITY",
+    "cf": 0.55
+   }
+  ],
+  "explanation": "{weekend_customers_per_staff:.1f} customers per staff member on weekends (warning level {cps_high}).",
+  "next_question": "prep_bottleneck"
+ },
+ {
+  "id": "R43",
+  "kind": "diagnostic",
+  "category": "Staffing & Operations",
+  "name": "Labour hours high relative to customers served",
+  "conditions": [
+   {
+    "fact": "labour_hours_per_customer",
+    "op": "ge",
+    "value": "$lh_cust_high"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_LABOUR",
+    "cf": 0.4,
+    "group": "labour_productivity"
+   }
+  ],
+  "explanation": "{labour_hours_per_customer:.2f} labour hours are spent per customer."
+ },
+ {
+  "id": "R44",
+  "kind": "diagnostic",
+  "category": "Staffing & Operations",
+  "name": "Overtime expenses increasing",
+  "conditions": [
+   {
+    "fact": "overtime_increasing",
+    "op": "true"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_LABOUR",
+    "cf": 0.35
+   },
+   {
+    "hypothesis": "H_CAPACITY",
+    "cf": 0.2
+   }
+  ],
+  "explanation": "Overtime payments are increasing."
+ },
+ {
+  "id": "R45",
+  "kind": "diagnostic",
+  "category": "Staffing & Operations",
+  "name": "Absenteeism affecting operations",
+  "conditions": [
+   {
+    "fact": "absenteeism",
+    "op": "true"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_CAPACITY",
+    "cf": 0.4
+   }
+  ],
+  "explanation": "Staff absences disturb the service."
+ },
+ {
+  "id": "R46",
+  "kind": "diagnostic",
+  "category": "Staffing & Operations",
+  "name": "Frequent employee turnover",
+  "conditions": [
+   {
+    "fact": "staff_turnover",
+    "op": "true"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_CAPACITY",
+    "cf": 0.3
+   },
+   {
+    "hypothesis": "H_LABOUR",
+    "cf": 0.2
+   }
+  ],
+  "explanation": "Staff leave frequently, creating hiring and training costs."
+ },
+ {
+  "id": "R47",
+  "kind": "diagnostic",
+  "category": "Staffing & Operations",
+  "name": "Scheduling not aligned with customer traffic",
+  "conditions": [
+   {
+    "fact": "schedule_alignment_index",
+    "op": "ge",
+    "value": "$align_high"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_LABOUR",
+    "cf": 0.5,
+    "group": "weekday_overstaffing"
+   }
+  ],
+  "explanation": "Weekday staffing is {schedule_alignment_index:.1f}x what the weekday/weekend demand pattern justifies.",
+  "asserts": [
+   {
+    "fact": "labour_misaligned",
+    "value": true
+   }
+  ]
+ },
+ {
+  "id": "R48",
+  "kind": "diagnostic",
+  "category": "Staffing & Operations",
+  "name": "Employee idle time increasing",
+  "conditions": [
+   {
+    "fact": "idle_time",
+    "op": "true"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_LABOUR",
+    "cf": 0.45,
+    "group": "weekday_overstaffing"
+   }
+  ],
+  "explanation": "Staff are often idle on quiet days."
+ },
+ {
+  "id": "R49",
+  "kind": "diagnostic",
+  "category": "Staffing & Operations",
+  "name": "Sales per labour hour decreasing",
+  "conditions": [
+   {
+    "fact": "sales_per_labour_hour_change_pct",
+    "op": "le",
+    "value": "-$slh_drop"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_LABOUR",
+    "cf": 0.4,
+    "group": "labour_productivity"
+   }
+  ],
+  "explanation": "Sales per labour hour changed by {sales_per_labour_hour_change_pct:.1f}%."
+ },
+ {
+  "id": "R50",
+  "kind": "diagnostic",
+  "category": "Staffing & Operations",
+  "name": "Food preparation bottlenecks delaying orders",
+  "conditions": [
+   {
+    "fact": "prep_bottleneck",
+    "op": "true"
+   }
+  ],
+  "effects": [
+   {
+    "hypothesis": "H_CAPACITY",
+    "cf": 0.5
+   }
+  ],
+  "explanation": "Orders are delayed in rush hours because the kitchen cannot keep up."
+ }
+]

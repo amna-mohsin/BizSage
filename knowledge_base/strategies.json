@@ -1,0 +1,976 @@
+{
+ "criteria": [
+  {
+   "id": "financial",
+   "label": "Expected financial benefit",
+   "weight": 0.3
+  },
+  {
+   "id": "risk",
+   "label": "Risk reduction",
+   "weight": 0.25
+  },
+  {
+   "id": "cost",
+   "label": "Low implementation cost",
+   "weight": 0.2
+  },
+  {
+   "id": "feasibility",
+   "label": "Operational feasibility",
+   "weight": 0.15
+  },
+  {
+   "id": "sustainability",
+   "label": "Long-term sustainability",
+   "weight": 0.1
+  }
+ ],
+ "problems": [
+  {
+   "id": "staffing",
+   "title": "Staffing strategy",
+   "question": "How should the restaurant staff its weekdays and weekends?",
+   "options": [
+    {
+     "id": "ST0",
+     "name": "Keep current staffing",
+     "summary": "Change nothing.",
+     "base": {
+      "financial": 4,
+      "risk": 4,
+      "cost": 10,
+      "feasibility": 10,
+      "sustainability": 3
+     },
+     "pros": [
+      "No recruitment or scheduling effort",
+      "No disruption to existing staff"
+     ],
+     "cons": [
+      "Idle-labour cost continues on quiet days",
+      "Weekend overload (if any) continues"
+     ],
+     "modifiers": [
+      {
+       "when": {
+        "hypothesis": "H_LABOUR",
+        "min": 0.4
+       },
+       "effects": {
+        "financial": -2,
+        "sustainability": -1
+       },
+       "reason": "Staffing mismatch is supported, so keeping things as they are continues the cost."
+      },
+      {
+       "when": {
+        "hypothesis": "H_CAPACITY",
+        "min": 0.4
+       },
+       "effects": {
+        "risk": -1.5
+       },
+       "reason": "Weekend overload or reliability problems are supported and would continue."
+      },
+      {
+       "when": {
+        "hypothesis": "H_LABOUR",
+        "max": 0.1
+       },
+       "effects": {
+        "financial": 1.5
+       },
+       "reason": "There is no evidence of staffing waste, so change is less urgent."
+      }
+     ]
+    },
+    {
+     "id": "ST1",
+     "name": "Demand-based scheduling with daily-wage staff",
+     "summary": "Fewer staff on quiet weekdays, extra daily-wage workers on busy days.",
+     "base": {
+      "financial": 7,
+      "risk": 6,
+      "cost": 8,
+      "feasibility": 7,
+      "sustainability": 8
+     },
+     "pros": [
+      "Matches staff to customer traffic",
+      "Uses flexible daily-wage workers (common in Pakistani restaurants)",
+      "Can fix weekday waste and weekend shortage together"
+     ],
+     "cons": [
+      "Needs a weekly roster and a reliable pool of daily workers",
+      "Regular staff may resist changed shifts"
+     ],
+     "modifiers": [
+      {
+       "when": {
+        "hypothesis": "H_LABOUR",
+        "min": 0.4
+       },
+       "effects": {
+        "financial": 2,
+        "risk": 1
+       },
+       "reason": "Labour not matched to demand is supported, and this option addresses it directly."
+      },
+      {
+       "when": {
+        "fact": "weekend_weekday_ratio",
+        "op": "ge",
+        "value": 2
+       },
+       "effects": {
+        "financial": 1,
+        "sustainability": 1
+       },
+       "reason": "Weekend demand is at least twice weekday demand, so flexible staffing has large room to help."
+      },
+      {
+       "when": {
+        "hypothesis": "H_CAPACITY",
+        "min": 0.4
+       },
+       "effects": {
+        "risk": 1
+       },
+       "reason": "Adds cover on the busy days where capacity is a problem."
+      },
+      {
+       "when": {
+        "hypothesis": "H_LABOUR",
+        "max": 0.1
+       },
+       "effects": {
+        "financial": -2
+       },
+       "reason": "No evidence of staffing waste, so rescheduling gains little."
+      }
+     ]
+    },
+    {
+     "id": "ST2",
+     "name": "Add weekend daily-wage workers only",
+     "summary": "Keep weekday staffing, hire extra people for peak days.",
+     "base": {
+      "financial": 5,
+      "risk": 6,
+      "cost": 6,
+      "feasibility": 8,
+      "sustainability": 5
+     },
+     "pros": [
+      "Directly relieves weekend rush",
+      "Simple to explain and to start"
+     ],
+     "cons": [
+      "Adds payroll without cutting weekday idle time",
+      "Benefit depends on weekend sales really being lost today"
+     ],
+     "modifiers": [
+      {
+       "when": {
+        "hypothesis": "H_CAPACITY",
+        "min": 0.4
+       },
+       "effects": {
+        "financial": 2.5,
+        "risk": 1.5
+       },
+       "reason": "Weekend capacity problems are supported, and this adds cover exactly there."
+      },
+      {
+       "when": {
+        "hypothesis": "H_LABOUR",
+        "min": 0.4
+       },
+       "effects": {
+        "financial": -1
+       },
+       "reason": "Extra payroll while weekday idle time exists adds to cost."
+      },
+      {
+       "when": {
+        "hypothesis": "H_CAPACITY",
+        "max": 0.1
+       },
+       "effects": {
+        "financial": -2
+       },
+       "reason": "No evidence of weekend capacity problems, so extra workers may not pay for themselves."
+      }
+     ]
+    },
+    {
+     "id": "ST3",
+     "name": "Reduce the permanent workforce",
+     "summary": "Cut a share of permanent staff to lower fixed labour cost.",
+     "base": {
+      "financial": 6,
+      "risk": 3,
+      "cost": 7,
+      "feasibility": 5,
+      "sustainability": 4
+     },
+     "pros": [
+      "Lowers fixed monthly labour cost",
+      "Quick effect on the profit line"
+     ],
+     "cons": [
+      "Service quality and morale may fall",
+      "Redundancy is hard to reverse and can hurt weekends"
+     ],
+     "modifiers": [
+      {
+       "when": {
+        "hypothesis": "H_LABOUR",
+        "min": 0.7
+       },
+       "effects": {
+        "financial": 1.5
+       },
+       "reason": "Staffing mismatch is strongly supported."
+      },
+      {
+       "when": {
+        "hypothesis": "H_CAPACITY",
+        "min": 0.4
+       },
+       "effects": {
+        "risk": -2,
+        "financial": -1.5
+       },
+       "reason": "Service is already stretched, so cutting staff is risky."
+      },
+      {
+       "when": {
+        "fact": "labour_cost_ratio",
+        "op": "ge",
+        "value": 45
+       },
+       "effects": {
+        "financial": 1
+       },
+       "reason": "Labour cost is above 45% of sales, so the saving is large."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "margin",
+   "title": "Cost and margin improvement",
+   "question": "Which action should be tried first to improve profit margins?",
+   "options": [
+    {
+     "id": "MG0",
+     "name": "Do nothing for now",
+     "summary": "Continue as at present.",
+     "base": {
+      "financial": 3,
+      "risk": 3,
+      "cost": 10,
+      "feasibility": 10,
+      "sustainability": 2
+     },
+     "pros": [
+      "No effort or cost"
+     ],
+     "cons": [
+      "Margin pressure continues"
+     ],
+     "modifiers": [
+      {
+       "when": {
+        "hypothesis": "H_WASTAGE",
+        "min": 0.4
+       },
+       "effects": {
+        "financial": -1.5
+       },
+       "reason": "Wastage is supported and would continue."
+      },
+      {
+       "when": {
+        "hypothesis": "H_FOODCOST",
+        "min": 0.4
+       },
+       "effects": {
+        "financial": -1.5
+       },
+       "reason": "Rising food cost is supported and would continue."
+      }
+     ]
+    },
+    {
+     "id": "MG1",
+     "name": "Prepare food by weekday/weekend demand",
+     "summary": "Forecast daily demand and cook accordingly.",
+     "base": {
+      "financial": 7,
+      "risk": 6,
+      "cost": 8,
+      "feasibility": 7,
+      "sustainability": 8
+     },
+     "pros": [
+      "Cuts unsold food directly",
+      "Low cost, uses existing staff"
+     ],
+     "cons": [
+      "Needs daily sales records and discipline",
+      "Risk of running out if forecast is too tight"
+     ],
+     "modifiers": [
+      {
+       "when": {
+        "hypothesis": "H_WASTAGE",
+        "min": 0.4
+       },
+       "effects": {
+        "financial": 2.5,
+        "sustainability": 1
+       },
+       "reason": "Food wastage is supported and this option targets it."
+      },
+      {
+       "when": {
+        "fact": "prep_same_weekday_weekend",
+        "op": "true",
+        "value": true
+       },
+       "effects": {
+        "financial": 1
+       },
+       "reason": "You prepare the same quantity every day despite uneven demand."
+      },
+      {
+       "when": {
+        "hypothesis": "H_WASTAGE",
+        "max": 0.1
+       },
+       "effects": {
+        "financial": -2.5
+       },
+       "reason": "No evidence of food wastage."
+      }
+     ]
+    },
+    {
+     "id": "MG2",
+     "name": "Renegotiate suppliers and tighten purchasing",
+     "summary": "Compare quotes, consolidate orders, check portion sizes.",
+     "base": {
+      "financial": 6,
+      "risk": 5,
+      "cost": 7,
+      "feasibility": 6,
+      "sustainability": 6
+     },
+     "pros": [
+      "Can lower cost per plate",
+      "Improves purchasing discipline"
+     ],
+     "cons": [
+      "Cheaper suppliers may reduce quality",
+      "Takes owner time to negotiate"
+     ],
+     "modifiers": [
+      {
+       "when": {
+        "hypothesis": "H_FOODCOST",
+        "min": 0.4
+       },
+       "effects": {
+        "financial": 2.5
+       },
+       "reason": "Rising food cost is supported."
+      },
+      {
+       "when": {
+        "hypothesis": "H_INVENTORY",
+        "min": 0.4
+       },
+       "effects": {
+        "financial": 1,
+        "risk": 1
+       },
+       "reason": "Weak inventory control is supported; tighter purchasing helps."
+      },
+      {
+       "when": {
+        "hypothesis": "H_FOODCOST",
+        "max": 0.1
+       },
+       "effects": {
+        "financial": -2
+       },
+       "reason": "No evidence of rising food cost."
+      }
+     ]
+    },
+    {
+     "id": "MG3",
+     "name": "Menu re-engineering",
+     "summary": "Promote high-margin dishes, redesign or drop low-margin ones.",
+     "base": {
+      "financial": 6,
+      "risk": 5,
+      "cost": 6,
+      "feasibility": 6,
+      "sustainability": 8
+     },
+     "pros": [
+      "Improves profit per plate without losing customers",
+      "Lasting effect"
+     ],
+     "cons": [
+      "Needs dish costing",
+      "Customers may dislike menu changes"
+     ],
+     "modifiers": [
+      {
+       "when": {
+        "hypothesis": "H_MENU",
+        "min": 0.4
+       },
+       "effects": {
+        "financial": 2.5,
+        "sustainability": 1
+       },
+       "reason": "A low-margin menu mix is supported."
+      },
+      {
+       "when": {
+        "hypothesis": "H_PRICING",
+        "min": 0.4
+       },
+       "effects": {
+        "financial": 1
+       },
+       "reason": "Pricing weakness is supported; menu design helps."
+      },
+      {
+       "when": {
+        "hypothesis": "H_MENU",
+        "max": 0.1
+       },
+       "effects": {
+        "financial": -2
+       },
+       "reason": "No evidence of a low-margin menu mix."
+      }
+     ]
+    },
+    {
+     "id": "MG4",
+     "name": "Reform the discount policy",
+     "summary": "Limit discounts to quiet hours and measure results.",
+     "base": {
+      "financial": 6,
+      "risk": 5,
+      "cost": 8,
+      "feasibility": 7,
+      "sustainability": 6
+     },
+     "pros": [
+      "Recovers margin quickly",
+      "Costs nothing to start"
+     ],
+     "cons": [
+      "Customers used to offers may leave",
+      "Needs careful testing"
+     ],
+     "modifiers": [
+      {
+       "when": {
+        "hypothesis": "H_PRICING",
+        "min": 0.4
+       },
+       "effects": {
+        "financial": 2.5,
+        "risk": 1
+       },
+       "reason": "Discount-driven margin erosion is supported."
+      },
+      {
+       "when": {
+        "fact": "discount_dependence",
+        "op": "true",
+        "value": true
+       },
+       "effects": {
+        "risk": -1.5
+       },
+       "reason": "Sales depend on discounts, so cutting them is risky."
+      },
+      {
+       "when": {
+        "hypothesis": "H_PRICING",
+        "max": 0.1
+       },
+       "effects": {
+        "financial": -2
+       },
+       "reason": "No evidence of discount-driven margin loss."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "cash",
+   "title": "Cash-flow recovery",
+   "question": "What should be done first to relieve cash pressure?",
+   "options": [
+    {
+     "id": "CF0",
+     "name": "Do nothing for now",
+     "summary": "Continue as at present.",
+     "base": {
+      "financial": 2,
+      "risk": 2,
+      "cost": 10,
+      "feasibility": 10,
+      "sustainability": 2
+     },
+     "pros": [
+      "No effort"
+     ],
+     "cons": [
+      "Cash pressure may worsen"
+     ],
+     "modifiers": [
+      {
+       "when": {
+        "hypothesis": "H_LIQUIDITY",
+        "min": 0.4
+       },
+       "effects": {
+        "risk": -2,
+        "financial": -1.5
+       },
+       "reason": "Cash pressure is supported and may get worse."
+      }
+     ]
+    },
+    {
+     "id": "CF1",
+     "name": "Collect receivables and enforce payment terms",
+     "summary": "Follow up overdue amounts and set clear credit terms.",
+     "base": {
+      "financial": 7,
+      "risk": 7,
+      "cost": 8,
+      "feasibility": 7,
+      "sustainability": 7
+     },
+     "pros": [
+      "Releases cash that is already yours",
+      "No new debt"
+     ],
+     "cons": [
+      "Pressure on corporate clients may affect relationships",
+      "Only works if receivables are real"
+     ],
+     "modifiers": [
+      {
+       "when": {
+        "fact": "receivables_overdue_ratio",
+        "op": "ge",
+        "value": 10
+       },
+       "effects": {
+        "financial": 2.5,
+        "risk": 1
+       },
+       "reason": "Overdue receivables are high, so collection has large potential."
+      },
+      {
+       "when": {
+        "hypothesis": "H_WCAP",
+        "min": 0.4
+       },
+       "effects": {
+        "financial": 1
+       },
+       "reason": "A working-capital imbalance is supported."
+      },
+      {
+       "when": {
+        "fact": "receivables_overdue_ratio",
+        "op": "le",
+        "value": 2
+       },
+       "effects": {
+        "financial": -3
+       },
+       "reason": "Overdue receivables are small, so there is little to collect."
+      }
+     ]
+    },
+    {
+     "id": "CF2",
+     "name": "Negotiate longer supplier terms or reschedule payables",
+     "summary": "Ask suppliers for extra credit days.",
+     "base": {
+      "financial": 5,
+      "risk": 5,
+      "cost": 8,
+      "feasibility": 6,
+      "sustainability": 4
+     },
+     "pros": [
+      "Quick relief with no interest if agreed",
+      "Uses existing relationships"
+     ],
+     "cons": [
+      "Suppliers may raise prices or limit supply",
+      "Hides rather than fixes the problem"
+     ],
+     "modifiers": [
+      {
+       "when": {
+        "hypothesis": "H_LIQUIDITY",
+        "min": 0.4
+       },
+       "effects": {
+        "financial": 1.5,
+        "risk": 1
+       },
+       "reason": "Cash pressure is supported, so extra time helps."
+      },
+      {
+       "when": {
+        "hypothesis": "H_WCAP",
+        "min": 0.4
+       },
+       "effects": {
+        "sustainability": -1
+       },
+       "reason": "Already relying on supplier credit; more reliance is risky."
+      }
+     ]
+    },
+    {
+     "id": "CF3",
+     "name": "Restructure or reschedule loan instalments",
+     "summary": "Talk to the lender about lower or later instalments.",
+     "base": {
+      "financial": 6,
+      "risk": 7,
+      "cost": 6,
+      "feasibility": 5,
+      "sustainability": 6
+     },
+     "pros": [
+      "Lowers monthly burden",
+      "Prevents default"
+     ],
+     "cons": [
+      "May increase total interest paid",
+      "Approval is not guaranteed"
+     ],
+     "modifiers": [
+      {
+       "when": {
+        "hypothesis": "H_DEBT",
+        "min": 0.4
+       },
+       "effects": {
+        "financial": 2,
+        "risk": 2
+       },
+       "reason": "Debt burden is supported."
+      },
+      {
+       "when": {
+        "fact": "debt_service_burden_pct",
+        "op": "ge",
+        "value": 12
+       },
+       "effects": {
+        "risk": 1
+       },
+       "reason": "Instalments take a large share of sales."
+      },
+      {
+       "when": {
+        "hypothesis": "H_DEBT",
+        "max": 0.1
+       },
+       "effects": {
+        "financial": -2.5
+       },
+       "reason": "No evidence of a debt problem."
+      }
+     ]
+    },
+    {
+     "id": "CF4",
+     "name": "Cut non-essential costs",
+     "summary": "Trim utilities, extras and low-value spending.",
+     "base": {
+      "financial": 5,
+      "risk": 5,
+      "cost": 8,
+      "feasibility": 8,
+      "sustainability": 5
+     },
+     "pros": [
+      "Immediate and fully in your control",
+      "No lender or supplier needed"
+     ],
+     "cons": [
+      "Limited size of saving",
+      "Cutting the wrong item can hurt service"
+     ],
+     "modifiers": [
+      {
+       "when": {
+        "hypothesis": "H_FIXED",
+        "min": 0.4
+       },
+       "effects": {
+        "financial": 1.5
+       },
+       "reason": "A heavy fixed-cost burden is supported."
+      },
+      {
+       "when": {
+        "hypothesis": "H_LIQUIDITY",
+        "min": 0.4
+       },
+       "effects": {
+        "risk": 1
+       },
+       "reason": "Cash pressure is supported; every saving counts."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "branch",
+   "title": "Branch / franchise decision",
+   "question": "What should be done with the weakest branch?",
+   "options": [
+    {
+     "id": "BR0",
+     "name": "Keep all branches open as they are",
+     "summary": "No change.",
+     "base": {
+      "financial": 4,
+      "risk": 5,
+      "cost": 10,
+      "feasibility": 10,
+      "sustainability": 3
+     },
+     "pros": [
+      "No disruption",
+      "Keeps local customers and staff"
+     ],
+     "cons": [
+      "Losses (if any) continue",
+      "Branches may compete for the same customers"
+     ],
+     "modifiers": [
+      {
+       "when": {
+        "fact": "weak_margin_pct",
+        "op": "lt",
+        "value": 0
+       },
+       "effects": {
+        "financial": -2.5,
+        "sustainability": -1.5
+       },
+       "reason": "The weakest branch is losing money."
+      },
+      {
+       "when": {
+        "fact": "overlap",
+        "op": "true",
+        "value": true
+       },
+       "effects": {
+        "financial": -1
+       },
+       "reason": "Branches follow almost the same trend, which suggests they compete for the same customers."
+      },
+      {
+       "when": {
+        "fact": "weak_slope_pct",
+        "op": "ge",
+        "value": 1
+       },
+       "effects": {
+        "financial": 2
+       },
+       "reason": "The weakest branch is improving month by month."
+      }
+     ]
+    },
+    {
+     "id": "BR1",
+     "name": "Close the weakest branch and focus on the others",
+     "summary": "Shut the weakest branch, move staff and effort to stronger branches.",
+     "base": {
+      "financial": 7,
+      "risk": 4,
+      "cost": 5,
+      "feasibility": 6,
+      "sustainability": 6
+     },
+     "pros": [
+      "Stops losses at the weak branch",
+      "Concentrates effort and staff"
+     ],
+     "cons": [
+      "Some customers will be lost",
+      "Closing is hard to reverse"
+     ],
+     "modifiers": [
+      {
+       "when": {
+        "fact": "weak_margin_pct",
+        "op": "lt",
+        "value": 0
+       },
+       "effects": {
+        "financial": 2,
+        "sustainability": 1
+       },
+       "reason": "The weakest branch loses money, so closing removes the loss."
+      },
+      {
+       "when": {
+        "fact": "overlap",
+        "op": "true",
+        "value": true
+       },
+       "effects": {
+        "financial": 1.5,
+        "risk": 1
+       },
+       "reason": "Customers can move to the sibling branch because both serve the same market."
+      },
+      {
+       "when": {
+        "fact": "weak_slope_pct",
+        "op": "ge",
+        "value": 1
+       },
+       "effects": {
+        "financial": -2.5
+       },
+       "reason": "The branch is improving, so closing may be premature."
+      }
+     ]
+    },
+    {
+     "id": "BR2",
+     "name": "Invest in and promote the weakest branch",
+     "summary": "Marketing, menu refresh or renovation to lift sales.",
+     "base": {
+      "financial": 6,
+      "risk": 4,
+      "cost": 4,
+      "feasibility": 6,
+      "sustainability": 7
+     },
+     "pros": [
+      "Can turn the branch around",
+      "Keeps the brand present in that area"
+     ],
+     "cons": [
+      "Needs cash, which may be limited",
+      "Results are uncertain"
+     ],
+     "modifiers": [
+      {
+       "when": {
+        "fact": "weak_slope_pct",
+        "op": "ge",
+        "value": -1
+       },
+       "effects": {
+        "financial": 1.5
+       },
+       "reason": "The trend is flat or improving, so investment has a base to build on."
+      },
+      {
+       "when": {
+        "fact": "overlap",
+        "op": "true",
+        "value": true
+       },
+       "effects": {
+        "financial": -1.5
+       },
+       "reason": "A sibling branch already serves the same customers."
+      },
+      {
+       "when": {
+        "fact": "weak_margin_pct",
+        "op": "lt",
+        "value": -10
+       },
+       "effects": {
+        "financial": -2
+       },
+       "reason": "Deep losses make investment risky."
+      }
+     ]
+    },
+    {
+     "id": "BR3",
+     "name": "Convert the weakest branch to delivery-only",
+     "summary": "Cut dining costs and serve online orders from a smaller kitchen.",
+     "base": {
+      "financial": 6,
+      "risk": 5,
+      "cost": 5,
+      "feasibility": 5,
+      "sustainability": 6
+     },
+     "pros": [
+      "Lower rent and staff cost",
+      "Reaches online customers"
+     ],
+     "cons": [
+      "Loses dine-in customers",
+      "Needs delivery platform and packaging"
+     ],
+     "modifiers": [
+      {
+       "when": {
+        "fact": "weak_margin_pct",
+        "op": "lt",
+        "value": 0
+       },
+       "effects": {
+        "financial": 1.5
+       },
+       "reason": "Lower running cost suits a loss-making branch."
+      },
+      {
+       "when": {
+        "fact": "delivery_declining",
+        "op": "true",
+        "value": true
+       },
+       "effects": {
+        "financial": -2
+       },
+       "reason": "Delivery orders are already declining."
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}
