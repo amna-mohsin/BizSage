@@ -69,7 +69,7 @@ def table(rows: List[List[str]], headers: List[str]) -> None:
     html(f'<div class="bs-card" style="padding:.4rem .6rem;overflow-x:auto"><table class="bs-table"><tr>{head}</tr>{body}</table></div>')
 
 
-def go(key: str, label: str, primary: bool = False) -> None:
+def go(key: str, label: str, primary: bool = False, disabled: bool = False) -> None:
     """Navigate to a registered workflow page after the user selects its button."""
-    if st.button(label, type="primary" if primary else "secondary", key=f"go_{key}_{label}"):
+    if st.button(label, type="primary" if primary else "secondary", key=f"go_{key}_{label}", disabled=disabled):
         st.switch_page(st.session_state["nav"][key])

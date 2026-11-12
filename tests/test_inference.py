@@ -1,6 +1,8 @@
 """Behaviour of the expert system: the reasoning loop, uncertainty, elimination, missing/contradictory/redundant data."""
 from expert_system import hypothesis_manager, inference_engine
+from config import MIN_QUESTIONS_TO_VIEW_RESULTS
 from expert_system.knowledge_loader import load_kb
+from expert_system.question_selector import rank_questions
 from expert_system.reasoning_controller import ReasoningSession
 from expert_system.working_memory import WorkingMemory
 from tests.helpers import case_session, empty_session
@@ -196,3 +198,28 @@ def test_follow_up_question_depends_on_the_previous_answer():
     no_next = [q["fact"] for q in no.state["ranked_questions"][:4]]
     assert "unsold_food" in yes_next and "expiry_before_use" not in yes_next
     assert "expiry_before_use" in no_next and "unsold_food" not in no_next
+
+
+def test_investigation_requires_ten_submitted_answers_before_results_unlock():
+    s = case_session()
+    for _ in range(MIN_QUESTIONS_TO_VIEW_RESULTS - 1):
+        question = s.current_question()
+        assert question is not None
+        s.answer(question["fact"], None, 1.0, "Not sure")
+    assert len(s.asked) == MIN_QUESTIONS_TO_VIEW_RESULTS - 1
+    assert s.current_question() is not None
+    question = s.current_question()
+    s.answer(question["fact"], None, 1.0, "Not sure")
+    assert len(s.asked) == MIN_QUESTIONS_TO_VIEW_RESULTS
+
+
+def test_minimum_answer_fallback_uses_related_unanswered_facts():
+    s = case_session()
+    result = s.state["result"]
+    result.rule_status = {rule["id"]: "FALSE" for rule in s.kb.rules}
+    result.unknown_facts = {}
+    questions = rank_questions(
+        s.kb, s.state["wm"], result, s.state["hypotheses"], set(), set()
+    )
+    assert questions
+    assert any("minimum assessment" in question["reason"] for question in questions)

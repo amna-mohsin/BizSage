@@ -75,6 +75,7 @@ def decision_box(title, options):
     cur = store.get(title, "Not decided yet")
     choice = st.selectbox("My decision (recorded in the report)", names, index=names.index(cur) if cur in names else 0, key=f"dec_{title}")
     store[title] = choice
+    st.caption("You choose the final action. BizSage compares the options; its ranking is guidance, not a decision.")
 
 
 def problem_tab(pid, s):

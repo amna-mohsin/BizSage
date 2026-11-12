@@ -12,6 +12,7 @@ IDENTITY = {
 WEEKDAYS_PER_MONTH = 22      # assumed working weekdays per month
 WEEKEND_DAYS_PER_MONTH = 8   # assumed weekend days per month
 MAX_QUESTIONS = 20           # safe termination: stop asking after this many questions
+MIN_QUESTIONS_TO_VIEW_RESULTS = 10  # minimum submitted answers before findings and options are unlocked
 APPROX_CERTAINTY = 0.8       # certainty multiplier when the owner answers with a word instead of a number
 REDUNDANT_WEIGHT = 0.3       # weight of the 2nd, 3rd... evidence in the same evidence group (avoids double counting)
 

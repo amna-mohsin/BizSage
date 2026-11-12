@@ -8,6 +8,7 @@ from pathlib import Path
 
 import streamlit as st
 
+from config import MIN_QUESTIONS_TO_VIEW_RESULTS
 from expert_system.reasoning_controller import ReasoningSession
 
 CASES = json.loads((Path(__file__).resolve().parent.parent / "demo_data" / "cases.json").read_text(encoding="utf-8"))
@@ -54,6 +55,11 @@ def load_case(key: str) -> None:
 def ready() -> bool:
     s = rs()
     return s.has_data() and s.state is not None
+
+
+def required_answers_remaining(session: ReasoningSession) -> int:
+    """Return how many submitted investigation answers remain before results unlock."""
+    return max(0, MIN_QUESTIONS_TO_VIEW_RESULTS - len(session.asked))
 
 
 def require_data() -> None:

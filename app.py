@@ -5,10 +5,11 @@ file only handles shared navigation, styling, and the sidebar.
 """
 import streamlit as st
 
-st.set_page_config(page_title="BizSage", page_icon=":material/insights:", layout="wide", initial_sidebar_state="auto")
+st.set_page_config(page_title="BizSage", page_icon="🍛", layout="wide", initial_sidebar_state="auto")
 
 from ui import business, dashboard, investigation, results  # noqa: E402
-from ui.components import bar, html  # noqa: E402
+from config import MIN_QUESTIONS_TO_VIEW_RESULTS  # noqa: E402
+from ui.components import html  # noqa: E402
 from ui.state import fresh, rs  # noqa: E402
 from ui.theme import inject_css  # noqa: E402
 from expert_system.reasoning_controller import ReasoningSession  # noqa: E402
@@ -26,18 +27,20 @@ def build_pages() -> dict:
 
 
 def sidebar(pages: dict) -> None:
-    """Show navigation and assessment progress shared by all pages."""
+    """Show navigation and a clearly styled control to start a fresh assessment."""
     with st.sidebar:
         html('<div class="bs-brand">Biz<i>Sage</i></div><div class="bs-tag">Restaurant decision helper</div>')
         st.write("")
-        for page in pages.values():
-            st.page_link(page)
-        st.divider()
         s = rs()
-        if s.has_data() and s.state:
-            comp = s.state["completeness"]["completeness_pct"]
-            html(f'<div class="bs-muted">Data completeness: <b>{comp}%</b></div>{bar(comp)}'
-                 f'<div class="bs-muted">Questions answered: <b>{len(s.asked)}</b></div>')
+        for page in pages.values():
+            locked = page is pages["results"] and len(s.asked) < MIN_QUESTIONS_TO_VIEW_RESULTS
+            st.page_link(
+                page,
+                disabled=locked,
+                help="Answer at least 10 investigation questions to unlock findings."
+                if locked else None,
+            )
+        st.divider()
         if s.has_data() and st.button("Start a new assessment", key="side_reset"):
             fresh(ReasoningSession())
             st.rerun()

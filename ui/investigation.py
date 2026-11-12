@@ -4,9 +4,9 @@ import streamlit as st
 from expert_system import hypothesis_manager
 from expert_system.input_parser import BOOLEAN_CHOICES, parse_numeric_answer
 from expert_system.knowledge_loader import load_kb
-from config import MAX_QUESTIONS
+from config import MAX_QUESTIONS, MIN_QUESTIONS_TO_VIEW_RESULTS
 from ui.components import badge, bar, esc, go, header, html, table
-from ui.state import require_data, rs
+from ui.state import required_answers_remaining, require_data, rs
 
 kb = load_kb()
 
@@ -67,7 +67,7 @@ def _question_card(s, q):
         elif keep:
             _answer_widget(s, q["fact"], f"{q['fact']}_{n}_re")
         return
-    html(f'<div class="bs-q"><div class="n">Question {n} of up to {MAX_QUESTIONS}</div><div class="t">{esc(spec["question"])}</div></div>')
+    html(f'<div class="bs-q"><div class="n">Question {n} of up to {MAX_QUESTIONS} · {MIN_QUESTIONS_TO_VIEW_RESULTS} answers unlock findings</div><div class="t">{esc(spec["question"])}</div></div>')
     with st.expander("Why am I being asked this?"):
         st.write(q["why"])
     _answer_widget(s, q["fact"], f"{q['fact']}_{n}")
@@ -111,7 +111,15 @@ def render():
             html(f'<div class="bs-card"><h4>Investigation complete {badge("done", "success")}</h4><p>{esc(reason)}</p><p>{esc(s.summary_text())}</p></div>')
             c1, c2, c3 = st.columns(3)
             with c1:
-                go("results", "Review findings and options", primary=True)
+                remaining = required_answers_remaining(s)
+                go(
+                    "results",
+                    "Review findings and options" if remaining == 0 else "Answer more investigation questions",
+                    primary=True,
+                    disabled=remaining > 0,
+                )
+                if remaining:
+                    st.caption(f"Answer {remaining} more question(s) to unlock findings and options.")
             with c2:
                 go("business", "Update business information")
             with c3:
@@ -124,9 +132,14 @@ def render():
                 st.info("No question is available yet. Add more details on the Business information page.")
             else:
                 _question_card(s, q)
-                if st.button("Finish the investigation now", key="finish_now"):
+                if len(s.asked) >= MIN_QUESTIONS_TO_VIEW_RESULTS and st.button("Finish the investigation now", key="finish_now"):
                     s.finish()
                     st.rerun()
+                elif len(s.asked) < MIN_QUESTIONS_TO_VIEW_RESULTS:
+                    st.caption(
+                        f"Answer at least {MIN_QUESTIONS_TO_VIEW_RESULTS} questions to unlock findings "
+                        f"({len(s.asked)} answered so far)."
+                    )
         if s.steps:
             with st.expander("How answers changed the findings"):
                 _timeline(s)

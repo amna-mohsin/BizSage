@@ -9,11 +9,38 @@ from ui.theme import P
 
 def style(fig, h=320):
     """Apply the shared theme and disable interactions that are awkward on small screens."""
-    fig.update_layout(height=h, margin=dict(l=8, r=8, t=42, b=8), paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)",
-                      font=dict(color=P["text"], family="system-ui, sans-serif"), title=dict(font=dict(size=15)), dragmode=False,
-                      legend=dict(bgcolor="rgba(0,0,0,0)", orientation="h", y=-0.2), legend_itemclick=False, legend_itemdoubleclick=False)
-    fig.update_xaxes(gridcolor=P["border"], zerolinecolor=P["border"], fixedrange=True)
-    fig.update_yaxes(gridcolor=P["border"], zerolinecolor=P["border"], fixedrange=True)
+    fig.update_layout(
+        height=h,
+        margin=dict(l=8, r=8, t=42, b=8),
+        paper_bgcolor="rgba(0,0,0,0)",
+        plot_bgcolor="rgba(0,0,0,0)",
+        font=dict(color=P["text"], family="system-ui, sans-serif"),
+        title=dict(font=dict(size=15, color=P["text"])),
+        colorway=[P["accent"], P["ok"], P["accent2"], P["bad"]],
+        dragmode=False,
+        legend=dict(
+            bgcolor="rgba(0,0,0,0)",
+            orientation="h",
+            y=-0.2,
+            font=dict(color=P["text"]),
+        ),
+        legend_itemclick=False,
+        legend_itemdoubleclick=False,
+    )
+    fig.update_xaxes(
+        gridcolor=P["border"],
+        zerolinecolor=P["border"],
+        fixedrange=True,
+        tickfont=dict(color=P["muted"]),
+        title_font=dict(color=P["text"]),
+    )
+    fig.update_yaxes(
+        gridcolor=P["border"],
+        zerolinecolor=P["border"],
+        fixedrange=True,
+        tickfont=dict(color=P["muted"]),
+        title_font=dict(color=P["text"]),
+    )
     return fig
 
 

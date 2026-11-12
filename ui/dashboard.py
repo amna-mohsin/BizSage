@@ -4,7 +4,7 @@ import streamlit as st
 from expert_system import hypothesis_manager
 from ui import charts
 from ui.components import badge, bar, esc, go, header, html, kpi_row, money, note
-from ui.state import CASES, CASE_KEYS, load_case, month_labels, rs
+from ui.state import CASES, CASE_KEYS, load_case, month_labels, required_answers_remaining, rs
 
 
 def _welcome():
@@ -66,6 +66,13 @@ def render():
     with b2:
         go("investigation", "Continue the investigation", primary=True)
     with b3:
-        go("results", "Review findings and options")
+        remaining = required_answers_remaining(s)
+        go(
+            "results",
+            "Review findings and options" if remaining == 0 else "Answer more investigation questions",
+            disabled=remaining > 0,
+        )
+        if remaining:
+            st.caption(f"Answer {remaining} more question(s) to unlock your findings and options.")
     if stt["conflicts"] or any(i.severity in ("error", "warning") for i in stt["issues"]):
         note("Some data needs your attention. Open Findings and options to review warnings and conflicts.", "Data quality")
