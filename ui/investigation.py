@@ -146,4 +146,4 @@ def render():
     with right:
         _live_panel(s)
         comp = s.state["completeness"]["completeness_pct"]
-        html(f'<div class="bs-card"><h4>Progress</h4><p>Questions answered: <b>{len(s.asked)}</b> of up to {MAX_QUESTIONS}</p><p>Data completeness: <b>{comp}%</b></p>{bar(comp)}</div>')
+        html(f'<div class="bs-card"><h4>Progress</h4><p>Questions answered: <b>{len(s.asked)}</b> of up to {MAX_QUESTIONS}</p></div>')
